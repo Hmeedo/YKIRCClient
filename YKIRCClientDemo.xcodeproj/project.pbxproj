@@ -1,0 +1,525 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8449D82B18B8EB44004A18F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D82A18B8EB44004A18F9 /* Foundation.framework */; };
+		8449D82D18B8EB44004A18F9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D82C18B8EB44004A18F9 /* CoreGraphics.framework */; };
+		8449D82F18B8EB44004A18F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D82E18B8EB44004A18F9 /* UIKit.framework */; };
+		8449D83518B8EB44004A18F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8449D83318B8EB44004A18F9 /* InfoPlist.strings */; };
+		8449D83718B8EB44004A18F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D83618B8EB44004A18F9 /* main.m */; };
+		8449D83B18B8EB44004A18F9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D83A18B8EB44004A18F9 /* AppDelegate.m */; };
+		8449D83D18B8EB44004A18F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8449D83C18B8EB44004A18F9 /* Images.xcassets */; };
+		8449D84418B8EB45004A18F9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D84318B8EB45004A18F9 /* XCTest.framework */; };
+		8449D84518B8EB45004A18F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D82A18B8EB44004A18F9 /* Foundation.framework */; };
+		8449D84618B8EB45004A18F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D82E18B8EB44004A18F9 /* UIKit.framework */; };
+		8449D84E18B8EB45004A18F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8449D84C18B8EB45004A18F9 /* InfoPlist.strings */; };
+		8449D85018B8EB45004A18F9 /* YKIRCClientDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D84F18B8EB45004A18F9 /* YKIRCClientDemoTests.m */; };
+		8449D85C18B8EB9E004A18F9 /* YKIRCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D85B18B8EB9E004A18F9 /* YKIRCClient.m */; };
+		8449D86318B8EC55004A18F9 /* BootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D86118B8EC55004A18F9 /* BootViewController.m */; };
+		8449D86418B8EC55004A18F9 /* BootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8449D86218B8EC55004A18F9 /* BootViewController.xib */; };
+		DE31955FBBD74CAABCF57896 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D8174BB60B466BB7C21917 /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8449D84718B8EB45004A18F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8449D81F18B8EB44004A18F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8449D82618B8EB44004A18F9;
+			remoteInfo = YKIRCClientDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		31EB557D30704CEF884300BB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		59D8174BB60B466BB7C21917 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8449D82718B8EB44004A18F9 /* YKIRCClientDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YKIRCClientDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8449D82A18B8EB44004A18F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8449D82C18B8EB44004A18F9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8449D82E18B8EB44004A18F9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8449D83218B8EB44004A18F9 /* YKIRCClientDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YKIRCClientDemo-Info.plist"; sourceTree = "<group>"; };
+		8449D83418B8EB44004A18F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8449D83618B8EB44004A18F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8449D83818B8EB44004A18F9 /* YKIRCClientDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YKIRCClientDemo-Prefix.pch"; sourceTree = "<group>"; };
+		8449D83918B8EB44004A18F9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8449D83A18B8EB44004A18F9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8449D83C18B8EB44004A18F9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8449D84218B8EB45004A18F9 /* YKIRCClientDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YKIRCClientDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8449D84318B8EB45004A18F9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		8449D84B18B8EB45004A18F9 /* YKIRCClientDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YKIRCClientDemoTests-Info.plist"; sourceTree = "<group>"; };
+		8449D84D18B8EB45004A18F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8449D84F18B8EB45004A18F9 /* YKIRCClientDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YKIRCClientDemoTests.m; sourceTree = "<group>"; };
+		8449D85A18B8EB9E004A18F9 /* YKIRCClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YKIRCClient.h; path = YKIRCClient/YKIRCClient.h; sourceTree = "<group>"; };
+		8449D85B18B8EB9E004A18F9 /* YKIRCClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YKIRCClient.m; path = YKIRCClient/YKIRCClient.m; sourceTree = "<group>"; };
+		8449D86018B8EC55004A18F9 /* BootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BootViewController.h; sourceTree = "<group>"; };
+		8449D86118B8EC55004A18F9 /* BootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootViewController.m; sourceTree = "<group>"; };
+		8449D86218B8EC55004A18F9 /* BootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BootViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8449D82418B8EB44004A18F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8449D82D18B8EB44004A18F9 /* CoreGraphics.framework in Frameworks */,
+				8449D82F18B8EB44004A18F9 /* UIKit.framework in Frameworks */,
+				8449D82B18B8EB44004A18F9 /* Foundation.framework in Frameworks */,
+				DE31955FBBD74CAABCF57896 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8449D83F18B8EB45004A18F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8449D84418B8EB45004A18F9 /* XCTest.framework in Frameworks */,
+				8449D84618B8EB45004A18F9 /* UIKit.framework in Frameworks */,
+				8449D84518B8EB45004A18F9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8449D81E18B8EB44004A18F9 = {
+			isa = PBXGroup;
+			children = (
+				8449D85918B8EB80004A18F9 /* YKIRCClient */,
+				8449D83018B8EB44004A18F9 /* YKIRCClientDemo */,
+				8449D84918B8EB45004A18F9 /* YKIRCClientDemoTests */,
+				8449D82918B8EB44004A18F9 /* Frameworks */,
+				8449D82818B8EB44004A18F9 /* Products */,
+				31EB557D30704CEF884300BB /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		8449D82818B8EB44004A18F9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8449D82718B8EB44004A18F9 /* YKIRCClientDemo.app */,
+				8449D84218B8EB45004A18F9 /* YKIRCClientDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8449D82918B8EB44004A18F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8449D82A18B8EB44004A18F9 /* Foundation.framework */,
+				8449D82C18B8EB44004A18F9 /* CoreGraphics.framework */,
+				8449D82E18B8EB44004A18F9 /* UIKit.framework */,
+				8449D84318B8EB45004A18F9 /* XCTest.framework */,
+				59D8174BB60B466BB7C21917 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8449D83018B8EB44004A18F9 /* YKIRCClientDemo */ = {
+			isa = PBXGroup;
+			children = (
+				8449D83918B8EB44004A18F9 /* AppDelegate.h */,
+				8449D83A18B8EB44004A18F9 /* AppDelegate.m */,
+				8449D86018B8EC55004A18F9 /* BootViewController.h */,
+				8449D86118B8EC55004A18F9 /* BootViewController.m */,
+				8449D86218B8EC55004A18F9 /* BootViewController.xib */,
+				8449D83C18B8EB44004A18F9 /* Images.xcassets */,
+				8449D83118B8EB44004A18F9 /* Supporting Files */,
+			);
+			path = YKIRCClientDemo;
+			sourceTree = "<group>";
+		};
+		8449D83118B8EB44004A18F9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8449D83218B8EB44004A18F9 /* YKIRCClientDemo-Info.plist */,
+				8449D83318B8EB44004A18F9 /* InfoPlist.strings */,
+				8449D83618B8EB44004A18F9 /* main.m */,
+				8449D83818B8EB44004A18F9 /* YKIRCClientDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8449D84918B8EB45004A18F9 /* YKIRCClientDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				8449D84F18B8EB45004A18F9 /* YKIRCClientDemoTests.m */,
+				8449D84A18B8EB45004A18F9 /* Supporting Files */,
+			);
+			path = YKIRCClientDemoTests;
+			sourceTree = "<group>";
+		};
+		8449D84A18B8EB45004A18F9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8449D84B18B8EB45004A18F9 /* YKIRCClientDemoTests-Info.plist */,
+				8449D84C18B8EB45004A18F9 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8449D85918B8EB80004A18F9 /* YKIRCClient */ = {
+			isa = PBXGroup;
+			children = (
+				8449D85A18B8EB9E004A18F9 /* YKIRCClient.h */,
+				8449D85B18B8EB9E004A18F9 /* YKIRCClient.m */,
+			);
+			name = YKIRCClient;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8449D82618B8EB44004A18F9 /* YKIRCClientDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8449D85318B8EB45004A18F9 /* Build configuration list for PBXNativeTarget "YKIRCClientDemo" */;
+			buildPhases = (
+				B835DE8502424E0D8E60F837 /* Check Pods Manifest.lock */,
+				8449D82318B8EB44004A18F9 /* Sources */,
+				8449D82418B8EB44004A18F9 /* Frameworks */,
+				8449D82518B8EB44004A18F9 /* Resources */,
+				FD41BE0C477A4DD2A19D12DC /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YKIRCClientDemo;
+			productName = YKIRCClientDemo;
+			productReference = 8449D82718B8EB44004A18F9 /* YKIRCClientDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8449D84118B8EB45004A18F9 /* YKIRCClientDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8449D85618B8EB45004A18F9 /* Build configuration list for PBXNativeTarget "YKIRCClientDemoTests" */;
+			buildPhases = (
+				8449D83E18B8EB45004A18F9 /* Sources */,
+				8449D83F18B8EB45004A18F9 /* Frameworks */,
+				8449D84018B8EB45004A18F9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8449D84818B8EB45004A18F9 /* PBXTargetDependency */,
+			);
+			name = YKIRCClientDemoTests;
+			productName = YKIRCClientDemoTests;
+			productReference = 8449D84218B8EB45004A18F9 /* YKIRCClientDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8449D81F18B8EB44004A18F9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Yoshiki Kurihara";
+				TargetAttributes = {
+					8449D84118B8EB45004A18F9 = {
+						TestTargetID = 8449D82618B8EB44004A18F9;
+					};
+				};
+			};
+			buildConfigurationList = 8449D82218B8EB44004A18F9 /* Build configuration list for PBXProject "YKIRCClientDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8449D81E18B8EB44004A18F9;
+			productRefGroup = 8449D82818B8EB44004A18F9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8449D82618B8EB44004A18F9 /* YKIRCClientDemo */,
+				8449D84118B8EB45004A18F9 /* YKIRCClientDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8449D82518B8EB44004A18F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8449D86418B8EC55004A18F9 /* BootViewController.xib in Resources */,
+				8449D83518B8EB44004A18F9 /* InfoPlist.strings in Resources */,
+				8449D83D18B8EB44004A18F9 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8449D84018B8EB45004A18F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8449D84E18B8EB45004A18F9 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B835DE8502424E0D8E60F837 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FD41BE0C477A4DD2A19D12DC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8449D82318B8EB44004A18F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8449D83B18B8EB44004A18F9 /* AppDelegate.m in Sources */,
+				8449D83718B8EB44004A18F9 /* main.m in Sources */,
+				8449D86318B8EC55004A18F9 /* BootViewController.m in Sources */,
+				8449D85C18B8EB9E004A18F9 /* YKIRCClient.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8449D83E18B8EB45004A18F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8449D85018B8EB45004A18F9 /* YKIRCClientDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8449D84818B8EB45004A18F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8449D82618B8EB44004A18F9 /* YKIRCClientDemo */;
+			targetProxy = 8449D84718B8EB45004A18F9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8449D83318B8EB44004A18F9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8449D83418B8EB44004A18F9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		8449D84C18B8EB45004A18F9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8449D84D18B8EB45004A18F9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8449D85118B8EB45004A18F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8449D85218B8EB45004A18F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8449D85418B8EB45004A18F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31EB557D30704CEF884300BB /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "YKIRCClientDemo/YKIRCClientDemo-Prefix.pch";
+				INFOPLIST_FILE = "YKIRCClientDemo/YKIRCClientDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8449D85518B8EB45004A18F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31EB557D30704CEF884300BB /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "YKIRCClientDemo/YKIRCClientDemo-Prefix.pch";
+				INFOPLIST_FILE = "YKIRCClientDemo/YKIRCClientDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		8449D85718B8EB45004A18F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YKIRCClientDemo.app/YKIRCClientDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "YKIRCClientDemo/YKIRCClientDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "YKIRCClientDemoTests/YKIRCClientDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		8449D85818B8EB45004A18F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YKIRCClientDemo.app/YKIRCClientDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "YKIRCClientDemo/YKIRCClientDemo-Prefix.pch";
+				INFOPLIST_FILE = "YKIRCClientDemoTests/YKIRCClientDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8449D82218B8EB44004A18F9 /* Build configuration list for PBXProject "YKIRCClientDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8449D85118B8EB45004A18F9 /* Debug */,
+				8449D85218B8EB45004A18F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8449D85318B8EB45004A18F9 /* Build configuration list for PBXNativeTarget "YKIRCClientDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8449D85418B8EB45004A18F9 /* Debug */,
+				8449D85518B8EB45004A18F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8449D85618B8EB45004A18F9 /* Build configuration list for PBXNativeTarget "YKIRCClientDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8449D85718B8EB45004A18F9 /* Debug */,
+				8449D85818B8EB45004A18F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8449D81F18B8EB44004A18F9 /* Project object */;
+}
