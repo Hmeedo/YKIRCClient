@@ -30,15 +30,26 @@
     [_client connect];
 }
 
-- (void)onConnected:(YKIRCClient *)ircClient
-{
-    [_client joinToChannel:@"#channel"];
-}
-
 - (IBAction)sendMessage:(id)sender
 {
     NSString *message = _textField.text;
     [_client sendMessage:message recipient:@"#channel"];
+    _textField.text = nil;
+    [_textField resignFirstResponder];
+}
+
+#pragma mark - YKIRCClientDelegate
+
+- (void)ircClientOnConnected:(YKIRCClient *)ircClient
+{
+    [ircClient joinToChannel:@"#channel"];
+}
+
+- (void)ircClient:(YKIRCClient *)ircClient onReadData:(NSData *)data
+{
+    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *newText = [_textView.text stringByAppendingString:str];
+    _textView.text = newText;
 }
 
 @end

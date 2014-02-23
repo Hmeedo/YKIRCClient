@@ -20,7 +20,7 @@ static long const kYKIRCClientTagPrivMsg = 4;
 {
     self = [super init];
     if (self) {
-        _socket = [[AsyncSocket alloc] initWithDelegate:self];
+        _sock = [[AsyncSocket alloc] initWithDelegate:self];
         _channels = @[].mutableCopy;
     }
     return self;
@@ -28,12 +28,12 @@ static long const kYKIRCClientTagPrivMsg = 4;
 
 - (void)connect
 {
-    [_socket connectToHost:_host onPort:_port error:nil];
+    [_sock connectToHost:_host onPort:_port error:nil];
 }
 
 - (void)joinToChannel:(NSString *)channel
 {
-    if (_socket.isConnected) {
+    if (_sock.isConnected) {
         [self sendRawString:[NSString stringWithFormat:@"JOIN %@ \r\n", channel]
                         tag:kYKIRCClientTagJoin];
     } else {
@@ -45,7 +45,7 @@ static long const kYKIRCClientTagPrivMsg = 4;
 {
     NSLog(@"--- %@", string);
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-    [_socket writeData:data withTimeout:kYKIRCClientDefaultTimeout tag:tag];
+    [_sock writeData:data withTimeout:kYKIRCClientDefaultTimeout tag:tag];
 }
 
 - (void)sendMessage:(NSString *)message recipient:(NSString *)recipient
@@ -61,7 +61,7 @@ static long const kYKIRCClientTagPrivMsg = 4;
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
     NSLog(@"Connect to %@ on %d", host, port);
-	[_socket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:0];
+	[_sock readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:0];
 
     [self sendRawString:[NSString stringWithFormat:@"PASS %@ \r\n", _pass]
                     tag:kYKIRCClientTagPass];
@@ -82,7 +82,7 @@ static long const kYKIRCClientTagPrivMsg = 4;
             break;
         case kYKIRCClientTagUser:
             NSLog(@"Sent user");
-            [self.delegate onConnected:self];
+            [self.delegate ircClientOnConnected:self];
             break;
         case kYKIRCClientTagJoin:
             NSLog(@"Joined");
@@ -94,7 +94,10 @@ static long const kYKIRCClientTagPrivMsg = 4;
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    NSLog(@"read data: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    [self.delegate ircClient:self onReadData:data];
+
+	if ([sock isConnected])
+		[sock readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:0];
 }
 
 @end

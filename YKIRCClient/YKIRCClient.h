@@ -5,14 +5,15 @@
 
 @protocol YKIRCClientDeleate <NSObject>
 
-- (void)onConnected:(YKIRCClient *)ircClient;
+- (void)ircClientOnConnected:(YKIRCClient *)ircClient;
+- (void)ircClient:(YKIRCClient *)ircClient onReadData:(NSData *)data;
 
 @end
 
 @interface YKIRCClient : NSObject <AsyncSocketDelegate>
 
 @property (weak) id<YKIRCClientDeleate> delegate;
-@property (nonatomic, strong) AsyncSocket *socket;
+@property (nonatomic, strong) AsyncSocket *sock;
 @property (nonatomic, copy) NSString *host;
 @property (nonatomic, assign) UInt16 port;
 @property (nonatomic, copy) NSString *pass;

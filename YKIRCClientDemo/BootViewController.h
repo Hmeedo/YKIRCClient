@@ -4,7 +4,8 @@
 @interface BootViewController : UIViewController <YKIRCClientDeleate>
 
 @property (nonatomic, strong) YKIRCClient *client;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (nonatomic, weak) IBOutlet UITextField *textField;
+@property (nonatomic, weak) IBOutlet UITextView *textView;
 
 - (IBAction)sendMessage:(id)sender;
 
