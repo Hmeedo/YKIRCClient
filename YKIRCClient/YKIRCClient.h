@@ -1,6 +1,13 @@
 #import <Foundation/Foundation.h>
 #import <CocoaAsyncSocket/AsyncSocket.h>
 #import "YKIRCMessage.h"
+#import "YKIRCUser.h"
+
+#if DEBUG
+#define YKIRCLog(fmt, ...) NSLog(fmt, ##__VA_ARGS__)
+#else
+#define YKIRCLog(fmt, ...)
+#endif
 
 typedef NS_ENUM(NSUInteger, YKIRCClientMessageType) {
     YKIRCClientMessageTypeUnknown,
@@ -8,10 +15,12 @@ typedef NS_ENUM(NSUInteger, YKIRCClientMessageType) {
     YKIRCClientMessageTypeNick,
     YKIRCClientMessageTypeUser,
     YKIRCClientMessageTypeJoin,
+    YKIRCClientMessageTypePart,
     YKIRCClientMessageTypePrivMsg,
     YKIRCClientMessageTypePing,
     YKIRCClientMessageTypePong,
     YKIRCClientMessageTypeNotice,
+    YKIRCClientMessageTypeNames,
 };
 
 @class YKIRCClient;
@@ -22,6 +31,8 @@ typedef NS_ENUM(NSUInteger, YKIRCClientMessageType) {
 - (void)ircClient:(YKIRCClient *)ircClient onReadData:(NSData *)data;
 - (void)ircClient:(YKIRCClient *)ircClient onNotice:(YKIRCMessage *)message;
 - (void)ircClient:(YKIRCClient *)ircClient onMessage:(YKIRCMessage *)message;
+- (void)ircClient:(YKIRCClient *)ircClient onJoin:(YKIRCUser *)user toChannel:(NSString *)channel;
+- (void)ircClient:(YKIRCClient *)ircClient onPart:(YKIRCUser *)user fromChannel:(NSString *)channel message:(NSString *)message;
 
 @end
 

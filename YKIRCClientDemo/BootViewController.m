@@ -89,4 +89,16 @@
     NSLog(@"text: %@", message.text);
 }
 
+- (void)ircClient:(YKIRCClient *)ircClient onJoin:(YKIRCUser *)user toChannel:(NSString *)channel
+{
+    NSLog(@"join ---------");
+    NSLog(@"%@ has joined to %@", user.nickName, channel);
+}
+
+- (void)ircClient:(YKIRCClient *)ircClient onPart:(YKIRCUser *)user fromChannel:(NSString *)channel message:(NSString *)message
+{
+    NSLog(@"part ---------");
+    NSLog(@"%@ has left from %@ (%@)", user.nickName, channel, message);
+}
+
 @end
