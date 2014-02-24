@@ -22,10 +22,9 @@
     _client.host = @"IRC Host";
     _client.port = 6667;
 //    _client.pass = @"pass";
-    _client.nickName = @"yournick";
+    _client.nickName = @"nick";
     _client.userName = @"username";
-    _client.serverName = @"servername";
-    _client.hostName = @"hostname";
+    _client.userMode = 0;
     _client.realName = @"realname";
     [_client connect];
 }
@@ -38,11 +37,35 @@
     [_textField resignFirstResponder];
 }
 
+- (IBAction)joinChannel:(id)sender
+{
+    NSString *channel = _joinChannelField.text;
+    [_client joinToChannel:channel];
+    _joinChannelField.text = nil;
+    [_joinChannelField resignFirstResponder];
+}
+
+- (IBAction)partChannel:(id)sender
+{
+    NSString *channel = _partChannelField.text;
+    [_client partFromChannel:channel];
+    _partChannelField.text = nil;
+    [_partChannelField resignFirstResponder];
+}
+
+- (IBAction)sendRawMessage:(id)sender
+{
+    NSString *rawText = _rawTextField.text;
+    [_client sendRawString:rawText tag:YKIRCClientMessageTypeUnknown];
+    _rawTextField.text = nil;
+    [_rawTextField resignFirstResponder];
+}
+
 #pragma mark - YKIRCClientDelegate
 
 - (void)ircClientOnConnected:(YKIRCClient *)ircClient
 {
-    [ircClient joinToChannel:@"#channel"];
+    NSLog(@"Connected!");
 }
 
 - (void)ircClient:(YKIRCClient *)ircClient onReadData:(NSData *)data
@@ -50,6 +73,20 @@
     NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSString *newText = [_textView.text stringByAppendingString:str];
     _textView.text = newText;
+}
+
+- (void)ircClient:(YKIRCClient *)ircClient onMessage:(YKIRCMessage *)message
+{
+    NSLog(@"message ---------");
+    NSLog(@"receiver: %@", message.receiver);
+    NSLog(@"text: %@", message.text);
+}
+
+- (void)ircClient:(YKIRCClient *)ircClient onNotice:(YKIRCMessage *)message
+{
+    NSLog(@"notice ---------");
+    NSLog(@"receiver: %@", message.receiver);
+    NSLog(@"text: %@", message.text);
 }
 
 @end

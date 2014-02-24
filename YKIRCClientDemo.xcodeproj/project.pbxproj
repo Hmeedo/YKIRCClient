@@ -22,6 +22,7 @@
 		8449D85C18B8EB9E004A18F9 /* YKIRCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D85B18B8EB9E004A18F9 /* YKIRCClient.m */; };
 		8449D86318B8EC55004A18F9 /* BootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D86118B8EC55004A18F9 /* BootViewController.m */; };
 		8449D86418B8EC55004A18F9 /* BootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8449D86218B8EC55004A18F9 /* BootViewController.xib */; };
+		D6052BDD18BB61FD00D379DB /* YKIRCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D6052BDC18BB61FD00D379DB /* YKIRCMessage.m */; };
 		DE31955FBBD74CAABCF57896 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D8174BB60B466BB7C21917 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,8 @@
 		8449D86018B8EC55004A18F9 /* BootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BootViewController.h; sourceTree = "<group>"; };
 		8449D86118B8EC55004A18F9 /* BootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootViewController.m; sourceTree = "<group>"; };
 		8449D86218B8EC55004A18F9 /* BootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BootViewController.xib; sourceTree = "<group>"; };
+		D6052BDB18BB61FD00D379DB /* YKIRCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YKIRCMessage.h; path = YKIRCClient/YKIRCMessage.h; sourceTree = "<group>"; };
+		D6052BDC18BB61FD00D379DB /* YKIRCMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YKIRCMessage.m; path = YKIRCClient/YKIRCMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +170,8 @@
 			children = (
 				8449D85A18B8EB9E004A18F9 /* YKIRCClient.h */,
 				8449D85B18B8EB9E004A18F9 /* YKIRCClient.m */,
+				D6052BDB18BB61FD00D379DB /* YKIRCMessage.h */,
+				D6052BDC18BB61FD00D379DB /* YKIRCMessage.m */,
 			);
 			name = YKIRCClient;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 			files = (
 				8449D83B18B8EB44004A18F9 /* AppDelegate.m in Sources */,
 				8449D83718B8EB44004A18F9 /* main.m in Sources */,
+				D6052BDD18BB61FD00D379DB /* YKIRCMessage.m in Sources */,
 				8449D86318B8EC55004A18F9 /* BootViewController.m in Sources */,
 				8449D85C18B8EB9E004A18F9 /* YKIRCClient.m in Sources */,
 			);
