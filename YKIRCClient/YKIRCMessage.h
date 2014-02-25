@@ -4,16 +4,11 @@
 typedef NS_ENUM(NSUInteger, YKIRCMessageType) {
     YKIRCMessageTypeUnknown,
     YKIRCMessageTypeNumeric,
-    YKIRCMessageTypePass,
-    YKIRCMessageTypeNick,
-    YKIRCMessageTypeUser,
     YKIRCMessageTypeJoin,
     YKIRCMessageTypePart,
     YKIRCMessageTypePrivMsg,
     YKIRCMessageTypePing,
-    YKIRCMessageTypePong,
     YKIRCMessageTypeNotice,
-    YKIRCMessageTypeNames,
 };
 
 @interface YKIRCMessage : NSObject

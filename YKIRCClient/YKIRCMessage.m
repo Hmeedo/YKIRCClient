@@ -78,7 +78,7 @@
     if (![params isEqual:[NSNull null]])
         _params = [params componentsSeparatedByString:@" "];
     
-    if (_parts.count >= kYKIRCMessagePartsTrail + 1)
+    if (_parts.count > kYKIRCMessagePartsTrail)
         _trail = [_parts objectAtIndex:kYKIRCMessagePartsTrail];
 }
 
@@ -117,7 +117,14 @@
     else if ([_command isEqualToString:@"PART"]) return YKIRCMessageTypePart;
     else if ([_command isEqualToString:@"PING"]) return YKIRCMessageTypePing;
     else if ([_command isEqualToString:@"JOIN"]) return YKIRCMessageTypeJoin;
-    else return YKIRCMessageTypeNumeric;
+    else {
+        NSRange range = [_command rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]];
+        if (range.location != NSNotFound) {
+            return YKIRCMessageTypeNumeric;
+        } else {
+            return YKIRCMessageTypeUnknown;
+        }
+    }
 }
 
 @end

@@ -9,7 +9,8 @@
 
 - (void)testParseJoinMessage
 {
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:@":nick!~username@server JOIN :#test"];
+    NSString *rawMessage = @":nick!~username@server JOIN :#test";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
     XCTAssertNotNil(message.user);
     XCTAssertNil(message.sender);
     XCTAssertEqualObjects(message.user.nick, @"nick");
@@ -21,7 +22,8 @@
 
 - (void)testParsePartMessage
 {
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:@":nick!~username@server PART #test :Leaving..."];
+    NSString *rawMessage = @":nick!~username@server PART #test :Leaving...";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
     XCTAssertNotNil(message.user);
     XCTAssertNil(message.sender);
     XCTAssertEqualObjects(message.user.nick, @"nick");
@@ -43,7 +45,8 @@
 
 - (void)testPrivateMessageForChannel
 {
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:@":nick!~username@server PRIVMSG #test :this is message"];
+    NSString *rawMessage = @":nick!~username@server PRIVMSG #test :this is message";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
     XCTAssertNotNil(message.user);
     XCTAssertNil(message.sender);
     XCTAssertEqualObjects(message.user.nick, @"nick");
@@ -56,7 +59,8 @@
 
 - (void)testPrivateMessageForPrivate
 {
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:@":nick!~username@server PRIVMSG you :this is message"];
+    NSString *rawMessage = @":nick!~username@server PRIVMSG you :this is message";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
     XCTAssertNotNil(message.user);
     XCTAssertNil(message.sender);
     XCTAssertEqualObjects(message.user.nick, @"nick");
@@ -69,7 +73,8 @@
 
 - (void)testNoticeMessageSimple
 {
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:@":sender NOTICE #channel :this is message"];
+    NSString *rawMessage = @":sender NOTICE #channel :this is message";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
     XCTAssertNil(message.user);
     XCTAssertNotNil(message.sender);
     XCTAssertEqual(message.type, YKIRCMessageTypeNotice);
@@ -79,9 +84,32 @@
 
 - (void)testNoticeMessageNoPrefix
 {
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:@"NOTICE nick :this is message"];
+    NSString *rawMessage = @"NOTICE nick :this is message";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
     XCTAssertNil(message.user);
     XCTAssertEqual(message.type, YKIRCMessageTypeNotice);
+    XCTAssertEqualObjects(message.params[0], @"nick");
+    XCTAssertEqualObjects(message.trail, @"this is message");
+}
+
+- (void)testNumericalCommandMessage
+{
+    NSString *rawMessage = @":sender 999 nick :this is message";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    XCTAssertNil(message.user);
+    XCTAssertNotNil(message.self);
+    XCTAssertEqual(message.type, YKIRCMessageTypeNumeric);
+    XCTAssertEqualObjects(message.params[0], @"nick");
+    XCTAssertEqualObjects(message.trail, @"this is message");
+}
+
+- (void)testUnknownCommandMessage
+{
+    NSString *rawMessage = @":sender UNKNOWN nick :this is message";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    XCTAssertNil(message.user);
+    XCTAssertNotNil(message.self);
+    XCTAssertEqual(message.type, YKIRCMessageTypeUnknown);
     XCTAssertEqualObjects(message.params[0], @"nick");
     XCTAssertEqualObjects(message.trail, @"this is message");
 }

@@ -234,11 +234,6 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Yoshiki Kurihara";
-				TargetAttributes = {
-					D6052D1618BC80FF00D379DB = {
-						TestTargetID = 8449D82618B8EB44004A18F9;
-					};
-				};
 			};
 			buildConfigurationList = 8449D82218B8EB44004A18F9 /* Build configuration list for PBXProject "YKIRCClient" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -471,7 +466,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YKIRCClient.app/YKIRCClient";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -485,7 +479,6 @@
 				);
 				INFOPLIST_FILE = "YKIRCClientTests/YKIRCClientTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -494,7 +487,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YKIRCClient.app/YKIRCClient";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -504,7 +496,6 @@
 				GCC_PREFIX_HEADER = "YKIRCClientTests/YKIRCClientTests-Prefix.pch";
 				INFOPLIST_FILE = "YKIRCClientTests/YKIRCClientTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
