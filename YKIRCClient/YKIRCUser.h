@@ -2,9 +2,10 @@
 
 @interface YKIRCUser : NSObject
 
-@property (nonatomic, copy) NSString *nickName;
-@property (nonatomic, copy) NSString *userName;
-@property (nonatomic, copy) NSString *serverName;
+@property (nonatomic, copy) NSString *nick;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *server;
 @property (nonatomic, copy) NSString *realName;
+@property (nonatomic, assign) NSUInteger mode;
 
 @end

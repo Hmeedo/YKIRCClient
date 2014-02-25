@@ -19,13 +19,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _client.host = @"IRC Host";
+    _client.host = @"IRC host";
     _client.port = 6667;
 //    _client.pass = @"pass";
-    _client.nickName = @"nick";
-    _client.userName = @"username";
-    _client.userMode = 0;
-    _client.realName = @"realname";
+    _client.user.nick = @"nick";
+    _client.user.name = @"username";
+    _client.user.mode = 0;
+    _client.user.realName = @"realname";
     [_client connect];
 }
 
@@ -56,7 +56,7 @@
 - (IBAction)sendRawMessage:(id)sender
 {
     NSString *rawText = _rawTextField.text;
-    [_client sendRawString:rawText tag:YKIRCClientMessageTypeUnknown];
+    [_client sendRawString:rawText tag:0];
     _rawTextField.text = nil;
     [_rawTextField resignFirstResponder];
 }
@@ -78,27 +78,33 @@
 - (void)ircClient:(YKIRCClient *)ircClient onMessage:(YKIRCMessage *)message
 {
     NSLog(@"message ---------");
-    NSLog(@"receiver: %@", message.receiver);
-    NSLog(@"text: %@", message.text);
+    if (message.user.nick) {
+        NSLog(@"nick: %@", message.user.nick);
+    } else {
+        NSLog(@"sender: %@", message.sender);
+    }
+    NSLog(@"receiver: %@", message.params[0]);
+    NSLog(@"text: %@", message.trail);
 }
 
 - (void)ircClient:(YKIRCClient *)ircClient onNotice:(YKIRCMessage *)message
 {
     NSLog(@"notice ---------");
-    NSLog(@"receiver: %@", message.receiver);
-    NSLog(@"text: %@", message.text);
+    NSLog(@"sender: %@", message.sender);
+    NSLog(@"receiver: %@", message.params[0]);
+    NSLog(@"text: %@", message.trail);
 }
 
-- (void)ircClient:(YKIRCClient *)ircClient onJoin:(YKIRCUser *)user toChannel:(NSString *)channel
+- (void)ircClient:(YKIRCClient *)ircClient onJoin:(YKIRCMessage *)message
 {
     NSLog(@"join ---------");
-    NSLog(@"%@ has joined to %@", user.nickName, channel);
+    NSLog(@"%@ has joined to %@", message.user.nick, message.trail);
 }
 
-- (void)ircClient:(YKIRCClient *)ircClient onPart:(YKIRCUser *)user fromChannel:(NSString *)channel message:(NSString *)message
+- (void)ircClient:(YKIRCClient *)ircClient onPart:(YKIRCMessage *)message
 {
     NSLog(@"part ---------");
-    NSLog(@"%@ has left from %@ (%@)", user.nickName, channel, message);
+    NSLog(@"%@ has left from %@ (%@)", message.user.nick, message.params[0], message.trail);
 }
 
 @end

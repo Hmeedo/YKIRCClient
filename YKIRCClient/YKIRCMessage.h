@@ -1,8 +1,30 @@
 #import <Foundation/Foundation.h>
+#import "YKIRCUser.h"
+
+typedef NS_ENUM(NSUInteger, YKIRCMessageType) {
+    YKIRCMessageTypeUnknown,
+    YKIRCMessageTypeNumeric,
+    YKIRCMessageTypePass,
+    YKIRCMessageTypeNick,
+    YKIRCMessageTypeUser,
+    YKIRCMessageTypeJoin,
+    YKIRCMessageTypePart,
+    YKIRCMessageTypePrivMsg,
+    YKIRCMessageTypePing,
+    YKIRCMessageTypePong,
+    YKIRCMessageTypeNotice,
+    YKIRCMessageTypeNames,
+};
 
 @interface YKIRCMessage : NSObject
 
-@property (nonatomic, copy) NSString *receiver;
-@property (nonatomic, copy) NSString *text;
+- (id)initWithMessage:(NSString *)message;
+
+@property (nonatomic, strong, readonly) NSArray *params;
+@property (nonatomic, strong) YKIRCUser *user;
+@property (nonatomic, copy) NSString *sender;
+@property (nonatomic, copy) NSString *command;
+@property (nonatomic, copy) NSString *trail;
+@property (nonatomic, assign) YKIRCMessageType type;
 
 @end

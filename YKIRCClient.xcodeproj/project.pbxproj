@@ -15,20 +15,21 @@
 		8449D83718B8EB44004A18F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D83618B8EB44004A18F9 /* main.m */; };
 		8449D83B18B8EB44004A18F9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D83A18B8EB44004A18F9 /* AppDelegate.m */; };
 		8449D83D18B8EB44004A18F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8449D83C18B8EB44004A18F9 /* Images.xcassets */; };
-		8449D84418B8EB45004A18F9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D84318B8EB45004A18F9 /* XCTest.framework */; };
-		8449D84518B8EB45004A18F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D82A18B8EB44004A18F9 /* Foundation.framework */; };
-		8449D84618B8EB45004A18F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D82E18B8EB44004A18F9 /* UIKit.framework */; };
-		8449D84E18B8EB45004A18F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8449D84C18B8EB45004A18F9 /* InfoPlist.strings */; };
-		8449D85018B8EB45004A18F9 /* YKIRCClientDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D84F18B8EB45004A18F9 /* YKIRCClientDemoTests.m */; };
 		8449D85C18B8EB9E004A18F9 /* YKIRCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D85B18B8EB9E004A18F9 /* YKIRCClient.m */; };
 		8449D86318B8EC55004A18F9 /* BootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8449D86118B8EC55004A18F9 /* BootViewController.m */; };
 		8449D86418B8EC55004A18F9 /* BootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8449D86218B8EC55004A18F9 /* BootViewController.xib */; };
 		D6052BDD18BB61FD00D379DB /* YKIRCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D6052BDC18BB61FD00D379DB /* YKIRCMessage.m */; };
+		D6052D1818BC80FF00D379DB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D84318B8EB45004A18F9 /* XCTest.framework */; };
+		D6052D1918BC80FF00D379DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D82A18B8EB44004A18F9 /* Foundation.framework */; };
+		D6052D1A18BC80FF00D379DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D82E18B8EB44004A18F9 /* UIKit.framework */; };
+		D6052D2018BC80FF00D379DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D6052D1E18BC80FF00D379DB /* InfoPlist.strings */; };
+		D6052D2218BC80FF00D379DB /* YKIRCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6052D2118BC80FF00D379DB /* YKIRCClientTests.m */; };
+		D623ABF718BC87E20083EB02 /* YKIRCMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D623ABF618BC87E20083EB02 /* YKIRCMessageTests.m */; };
 		DE31955FBBD74CAABCF57896 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D8174BB60B466BB7C21917 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8449D84718B8EB45004A18F9 /* PBXContainerItemProxy */ = {
+		D6052D2418BC80FF00D379DB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8449D81F18B8EB44004A18F9 /* Project object */;
 			proxyType = 1;
@@ -42,7 +43,7 @@
 		59D8174BB60B466BB7C21917 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8440E7A018BBACB40070F323 /* YKIRCUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YKIRCUser.h; path = YKIRCClient/YKIRCUser.h; sourceTree = "<group>"; };
 		8440E7A118BBACB40070F323 /* YKIRCUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YKIRCUser.m; path = YKIRCClient/YKIRCUser.m; sourceTree = "<group>"; };
-		8449D82718B8EB44004A18F9 /* YKIRCClientDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YKIRCClientDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8449D82718B8EB44004A18F9 /* YKIRCClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YKIRCClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8449D82A18B8EB44004A18F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8449D82C18B8EB44004A18F9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		8449D82E18B8EB44004A18F9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -53,11 +54,7 @@
 		8449D83918B8EB44004A18F9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8449D83A18B8EB44004A18F9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8449D83C18B8EB44004A18F9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		8449D84218B8EB45004A18F9 /* YKIRCClientDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YKIRCClientDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8449D84318B8EB45004A18F9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		8449D84B18B8EB45004A18F9 /* YKIRCClientDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YKIRCClientDemoTests-Info.plist"; sourceTree = "<group>"; };
-		8449D84D18B8EB45004A18F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		8449D84F18B8EB45004A18F9 /* YKIRCClientDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YKIRCClientDemoTests.m; sourceTree = "<group>"; };
 		8449D85A18B8EB9E004A18F9 /* YKIRCClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YKIRCClient.h; path = YKIRCClient/YKIRCClient.h; sourceTree = "<group>"; };
 		8449D85B18B8EB9E004A18F9 /* YKIRCClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YKIRCClient.m; path = YKIRCClient/YKIRCClient.m; sourceTree = "<group>"; };
 		8449D86018B8EC55004A18F9 /* BootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BootViewController.h; sourceTree = "<group>"; };
@@ -65,6 +62,12 @@
 		8449D86218B8EC55004A18F9 /* BootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BootViewController.xib; sourceTree = "<group>"; };
 		D6052BDB18BB61FD00D379DB /* YKIRCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YKIRCMessage.h; path = YKIRCClient/YKIRCMessage.h; sourceTree = "<group>"; };
 		D6052BDC18BB61FD00D379DB /* YKIRCMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YKIRCMessage.m; path = YKIRCClient/YKIRCMessage.m; sourceTree = "<group>"; };
+		D6052D1718BC80FF00D379DB /* YKIRCClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YKIRCClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6052D1D18BC80FF00D379DB /* YKIRCClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YKIRCClientTests-Info.plist"; sourceTree = "<group>"; };
+		D6052D1F18BC80FF00D379DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D6052D2118BC80FF00D379DB /* YKIRCClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YKIRCClientTests.m; sourceTree = "<group>"; };
+		D6052D2318BC80FF00D379DB /* YKIRCClientTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YKIRCClientTests-Prefix.pch"; sourceTree = "<group>"; };
+		D623ABF618BC87E20083EB02 /* YKIRCMessageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKIRCMessageTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,13 +82,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8449D83F18B8EB45004A18F9 /* Frameworks */ = {
+		D6052D1418BC80FF00D379DB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8449D84418B8EB45004A18F9 /* XCTest.framework in Frameworks */,
-				8449D84618B8EB45004A18F9 /* UIKit.framework in Frameworks */,
-				8449D84518B8EB45004A18F9 /* Foundation.framework in Frameworks */,
+				D6052D1818BC80FF00D379DB /* XCTest.framework in Frameworks */,
+				D6052D1A18BC80FF00D379DB /* UIKit.framework in Frameworks */,
+				D6052D1918BC80FF00D379DB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +100,7 @@
 			children = (
 				8449D85918B8EB80004A18F9 /* YKIRCClient */,
 				8449D83018B8EB44004A18F9 /* YKIRCClientDemo */,
-				8449D84918B8EB45004A18F9 /* YKIRCClientDemoTests */,
+				D6052D1B18BC80FF00D379DB /* YKIRCClientTests */,
 				8449D82918B8EB44004A18F9 /* Frameworks */,
 				8449D82818B8EB44004A18F9 /* Products */,
 				31EB557D30704CEF884300BB /* Pods.xcconfig */,
@@ -107,8 +110,8 @@
 		8449D82818B8EB44004A18F9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8449D82718B8EB44004A18F9 /* YKIRCClientDemo.app */,
-				8449D84218B8EB45004A18F9 /* YKIRCClientDemoTests.xctest */,
+				8449D82718B8EB44004A18F9 /* YKIRCClient.app */,
+				D6052D1718BC80FF00D379DB /* YKIRCClientTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,24 +153,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8449D84918B8EB45004A18F9 /* YKIRCClientDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				8449D84F18B8EB45004A18F9 /* YKIRCClientDemoTests.m */,
-				8449D84A18B8EB45004A18F9 /* Supporting Files */,
-			);
-			path = YKIRCClientDemoTests;
-			sourceTree = "<group>";
-		};
-		8449D84A18B8EB45004A18F9 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				8449D84B18B8EB45004A18F9 /* YKIRCClientDemoTests-Info.plist */,
-				8449D84C18B8EB45004A18F9 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		8449D85918B8EB80004A18F9 /* YKIRCClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,12 +166,32 @@
 			name = YKIRCClient;
 			sourceTree = "<group>";
 		};
+		D6052D1B18BC80FF00D379DB /* YKIRCClientTests */ = {
+			isa = PBXGroup;
+			children = (
+				D6052D2118BC80FF00D379DB /* YKIRCClientTests.m */,
+				D623ABF618BC87E20083EB02 /* YKIRCMessageTests.m */,
+				D6052D1C18BC80FF00D379DB /* Supporting Files */,
+			);
+			path = YKIRCClientTests;
+			sourceTree = "<group>";
+		};
+		D6052D1C18BC80FF00D379DB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D6052D1D18BC80FF00D379DB /* YKIRCClientTests-Info.plist */,
+				D6052D1E18BC80FF00D379DB /* InfoPlist.strings */,
+				D6052D2318BC80FF00D379DB /* YKIRCClientTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8449D82618B8EB44004A18F9 /* YKIRCClientDemo */ = {
+		8449D82618B8EB44004A18F9 /* YKIRCClient */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8449D85318B8EB45004A18F9 /* Build configuration list for PBXNativeTarget "YKIRCClientDemo" */;
+			buildConfigurationList = 8449D85318B8EB45004A18F9 /* Build configuration list for PBXNativeTarget "YKIRCClient" */;
 			buildPhases = (
 				B835DE8502424E0D8E60F837 /* Check Pods Manifest.lock */,
 				8449D82318B8EB44004A18F9 /* Sources */,
@@ -198,27 +203,27 @@
 			);
 			dependencies = (
 			);
-			name = YKIRCClientDemo;
+			name = YKIRCClient;
 			productName = YKIRCClientDemo;
-			productReference = 8449D82718B8EB44004A18F9 /* YKIRCClientDemo.app */;
+			productReference = 8449D82718B8EB44004A18F9 /* YKIRCClient.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8449D84118B8EB45004A18F9 /* YKIRCClientDemoTests */ = {
+		D6052D1618BC80FF00D379DB /* YKIRCClientTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8449D85618B8EB45004A18F9 /* Build configuration list for PBXNativeTarget "YKIRCClientDemoTests" */;
+			buildConfigurationList = D6052D2618BC80FF00D379DB /* Build configuration list for PBXNativeTarget "YKIRCClientTests" */;
 			buildPhases = (
-				8449D83E18B8EB45004A18F9 /* Sources */,
-				8449D83F18B8EB45004A18F9 /* Frameworks */,
-				8449D84018B8EB45004A18F9 /* Resources */,
+				D6052D1318BC80FF00D379DB /* Sources */,
+				D6052D1418BC80FF00D379DB /* Frameworks */,
+				D6052D1518BC80FF00D379DB /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				8449D84818B8EB45004A18F9 /* PBXTargetDependency */,
+				D6052D2518BC80FF00D379DB /* PBXTargetDependency */,
 			);
-			name = YKIRCClientDemoTests;
-			productName = YKIRCClientDemoTests;
-			productReference = 8449D84218B8EB45004A18F9 /* YKIRCClientDemoTests.xctest */;
+			name = YKIRCClientTests;
+			productName = YKIRCClientTests;
+			productReference = D6052D1718BC80FF00D379DB /* YKIRCClientTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -230,12 +235,12 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Yoshiki Kurihara";
 				TargetAttributes = {
-					8449D84118B8EB45004A18F9 = {
+					D6052D1618BC80FF00D379DB = {
 						TestTargetID = 8449D82618B8EB44004A18F9;
 					};
 				};
 			};
-			buildConfigurationList = 8449D82218B8EB44004A18F9 /* Build configuration list for PBXProject "YKIRCClientDemo" */;
+			buildConfigurationList = 8449D82218B8EB44004A18F9 /* Build configuration list for PBXProject "YKIRCClient" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -247,8 +252,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8449D82618B8EB44004A18F9 /* YKIRCClientDemo */,
-				8449D84118B8EB45004A18F9 /* YKIRCClientDemoTests */,
+				8449D82618B8EB44004A18F9 /* YKIRCClient */,
+				D6052D1618BC80FF00D379DB /* YKIRCClientTests */,
 			);
 		};
 /* End PBXProject section */
@@ -264,11 +269,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8449D84018B8EB45004A18F9 /* Resources */ = {
+		D6052D1518BC80FF00D379DB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8449D84E18B8EB45004A18F9 /* InfoPlist.strings in Resources */,
+				D6052D2018BC80FF00D379DB /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,21 +326,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8449D83E18B8EB45004A18F9 /* Sources */ = {
+		D6052D1318BC80FF00D379DB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8449D85018B8EB45004A18F9 /* YKIRCClientDemoTests.m in Sources */,
+				D623ABF718BC87E20083EB02 /* YKIRCMessageTests.m in Sources */,
+				D6052D2218BC80FF00D379DB /* YKIRCClientTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8449D84818B8EB45004A18F9 /* PBXTargetDependency */ = {
+		D6052D2518BC80FF00D379DB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8449D82618B8EB44004A18F9 /* YKIRCClientDemo */;
-			targetProxy = 8449D84718B8EB45004A18F9 /* PBXContainerItemProxy */;
+			target = 8449D82618B8EB44004A18F9 /* YKIRCClient */;
+			targetProxy = D6052D2418BC80FF00D379DB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -348,10 +354,10 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		8449D84C18B8EB45004A18F9 /* InfoPlist.strings */ = {
+		D6052D1E18BC80FF00D379DB /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8449D84D18B8EB45004A18F9 /* en */,
+				D6052D1F18BC80FF00D379DB /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -441,7 +447,7 @@
 				GCC_PREFIX_HEADER = "YKIRCClientDemo/YKIRCClientDemo-Prefix.pch";
 				INFOPLIST_FILE = "YKIRCClientDemo/YKIRCClientDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = YKIRCClient;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -456,47 +462,47 @@
 				GCC_PREFIX_HEADER = "YKIRCClientDemo/YKIRCClientDemo-Prefix.pch";
 				INFOPLIST_FILE = "YKIRCClientDemo/YKIRCClientDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = YKIRCClient;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
-		8449D85718B8EB45004A18F9 /* Debug */ = {
+		D6052D2718BC80FF00D379DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YKIRCClientDemo.app/YKIRCClientDemo";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YKIRCClient.app/YKIRCClient";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "YKIRCClientDemo/YKIRCClientDemo-Prefix.pch";
+				GCC_PREFIX_HEADER = "YKIRCClientTests/YKIRCClientTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "YKIRCClientDemoTests/YKIRCClientDemoTests-Info.plist";
+				INFOPLIST_FILE = "YKIRCClientTests/YKIRCClientTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
-		8449D85818B8EB45004A18F9 /* Release */ = {
+		D6052D2818BC80FF00D379DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YKIRCClientDemo.app/YKIRCClientDemo";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YKIRCClient.app/YKIRCClient";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "YKIRCClientDemo/YKIRCClientDemo-Prefix.pch";
-				INFOPLIST_FILE = "YKIRCClientDemoTests/YKIRCClientDemoTests-Info.plist";
+				GCC_PREFIX_HEADER = "YKIRCClientTests/YKIRCClientTests-Prefix.pch";
+				INFOPLIST_FILE = "YKIRCClientTests/YKIRCClientTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -506,7 +512,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8449D82218B8EB44004A18F9 /* Build configuration list for PBXProject "YKIRCClientDemo" */ = {
+		8449D82218B8EB44004A18F9 /* Build configuration list for PBXProject "YKIRCClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8449D85118B8EB45004A18F9 /* Debug */,
@@ -515,7 +521,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8449D85318B8EB45004A18F9 /* Build configuration list for PBXNativeTarget "YKIRCClientDemo" */ = {
+		8449D85318B8EB45004A18F9 /* Build configuration list for PBXNativeTarget "YKIRCClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8449D85418B8EB45004A18F9 /* Debug */,
@@ -524,11 +530,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8449D85618B8EB45004A18F9 /* Build configuration list for PBXNativeTarget "YKIRCClientDemoTests" */ = {
+		D6052D2618BC80FF00D379DB /* Build configuration list for PBXNativeTarget "YKIRCClientTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8449D85718B8EB45004A18F9 /* Debug */,
-				8449D85818B8EB45004A18F9 /* Release */,
+				D6052D2718BC80FF00D379DB /* Debug */,
+				D6052D2818BC80FF00D379DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
