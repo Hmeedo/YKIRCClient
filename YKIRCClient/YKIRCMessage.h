@@ -9,6 +9,8 @@ typedef NS_ENUM(NSUInteger, YKIRCMessageType) {
     YKIRCMessageTypePrivMsg,
     YKIRCMessageTypePing,
     YKIRCMessageTypeNotice,
+    YKIRCMessageTypeQuit,
+    YKIRCMessageTypeMode,
 };
 
 @interface YKIRCMessage : NSObject
@@ -19,6 +21,7 @@ typedef NS_ENUM(NSUInteger, YKIRCMessageType) {
 @property (nonatomic, strong) YKIRCUser *user;
 @property (nonatomic, copy) NSString *sender;
 @property (nonatomic, copy) NSString *command;
+@property (nonatomic, assign) NSUInteger numericCommand;
 @property (nonatomic, copy) NSString *trail;
 @property (nonatomic, assign) YKIRCMessageType type;
 

@@ -97,7 +97,7 @@
     NSString *rawMessage = @":sender 999 nick :this is message";
     YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
     XCTAssertNil(message.user);
-    XCTAssertNotNil(message.self);
+    XCTAssertNotNil(message.sender);
     XCTAssertEqual(message.type, YKIRCMessageTypeNumeric);
     XCTAssertEqualObjects(message.params[0], @"nick");
     XCTAssertEqualObjects(message.trail, @"this is message");
@@ -108,22 +108,48 @@
     NSString *rawMessage = @":sender UNKNOWN nick :this is message";
     YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
     XCTAssertNil(message.user);
-    XCTAssertNotNil(message.self);
+    XCTAssertNotNil(message.sender);
     XCTAssertEqual(message.type, YKIRCMessageTypeUnknown);
     XCTAssertEqualObjects(message.params[0], @"nick");
     XCTAssertEqualObjects(message.trail, @"this is message");
 }
 
-// :tiarra 001 clouder :Welcome to the Internet Relay Network clouder!username@203.104.128.122
+- (void)testQuitCommandMessage
+{
+    NSString *rawMessage = @"QUIT :this is message";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    XCTAssertNil(message.user);
+    XCTAssertNil(message.sender);
+    XCTAssertEqual(message.type, YKIRCMessageTypeQuit);
+    XCTAssertEqualObjects(message.trail, @"this is message");
+}
+
+- (void)testModeCommandMessage
+{
+    NSString *rawMessage = @":nick!~user@server MODE #channel +s";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    XCTAssertNotNil(message.user);
+    XCTAssertNil(message.sender);
+    XCTAssertEqualObjects(message.user.nick, @"nick");
+    XCTAssertEqualObjects(message.user.name, @"user");
+    XCTAssertEqualObjects(message.user.server, @"server");
+    XCTAssertEqual(message.type, YKIRCMessageTypeMode);
+    XCTAssertEqualObjects(message.params[0], @"#channel");
+    XCTAssertEqualObjects(message.params[1], @"+s");
+}
+
+// :WiZ!jto@tolsun.oulu.fi TOPIC #test :New topic
+
+// :tiarra 001 clouder :Welcome to the Internet Relay Network clouder!username@server
 // :tiarra 002 clouder :Your host is tiarra, running version 0.1+svn-38663M
 // :tiarra 375 clouder :- tiarra Message of the Day -
 // :tiarra 372 clouder :- - T i a r r a - :::version #0.1+svn-38663M:::
 // :tiarra 372 clouder :- Copyright (c) 2008 Tiarra Development Team. All rights reserved.
 // :tiarra 376 clouder :End of MOTD command.
 
-// :tiarra 332 clouder #shibuya.pm@freenode :no Perl; use x86; # http://shibuya.pm.org/blosxom/techtalks/200904.html
-// :tiarra 333 clouder #shibuya.pm@freenode fujiwara_______2!~fujiwara@49.212.134.220 1391402511
-// :tiarra 353 clouder @ #shibuya.pm@freenode :junichiro_ cho46 hio_hp___
-// :tiarra 366 clouder #shibuya.pm@freenode :End of NAMES list
+// :tiarra 332 clouder #channel@freenode :no Perl; use x86; # http://shibuya.pm.org/blosxom/techtalks/200904.html
+// :tiarra 333 clouder #channel@freenode user_______2!~user@server 1391402511
+// :tiarra 353 clouder @ #channel@freenode :user1 user2 user3
+// :tiarra 366 clouder #channel@freenode :End of NAMES list
 
 @end

@@ -5,6 +5,14 @@
 #define kYKIRCMessagePartsParams  2
 #define kYKIRCMessagePartsTrail   3
 
+#define PRIVMSG @"PRIVMSG"
+#define NOTICE @"NOTICE"
+#define JOIN @"JOIN"
+#define PART @"PART"
+#define PING @"PING"
+#define QUIT @"QUIT"
+#define MODE @"MODE"
+
 @interface YKIRCMessage ()
 
 @property (nonatomic, copy) NSString *message;
@@ -73,6 +81,10 @@
     [self parsePrefix];
     
     _command = [_parts objectAtIndex:kYKIRCMessagePartsCommand];
+    NSRange range = [_command rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]];
+    if (range.location != NSNotFound) {
+        _numericCommand = [[_command substringWithRange:range] integerValue];
+    }
 
     NSString *params = [_parts objectAtIndex:kYKIRCMessagePartsParams];
     if (![params isEqual:[NSNull null]])
@@ -111,15 +123,15 @@
 
 - (YKIRCMessageType)type
 {
-    if ([_command isEqualToString:@"PRIVMSG"]) return YKIRCMessageTypePrivMsg;
-    else if ([_command isEqualToString:@"NOTICE"]) return YKIRCMessageTypeNotice;
-    else if ([_command isEqualToString:@"JOIN"]) return YKIRCMessageTypeJoin;
-    else if ([_command isEqualToString:@"PART"]) return YKIRCMessageTypePart;
-    else if ([_command isEqualToString:@"PING"]) return YKIRCMessageTypePing;
-    else if ([_command isEqualToString:@"JOIN"]) return YKIRCMessageTypeJoin;
+    if ([_command isEqualToString:PRIVMSG]) return YKIRCMessageTypePrivMsg;
+    else if ([_command isEqualToString:NOTICE]) return YKIRCMessageTypeNotice;
+    else if ([_command isEqualToString:JOIN]) return YKIRCMessageTypeJoin;
+    else if ([_command isEqualToString:PART]) return YKIRCMessageTypePart;
+    else if ([_command isEqualToString:PING]) return YKIRCMessageTypePing;
+    else if ([_command isEqualToString:QUIT]) return YKIRCMessageTypeQuit;
+    else if ([_command isEqualToString:MODE]) return YKIRCMessageTypeMode;
     else {
-        NSRange range = [_command rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]];
-        if (range.location != NSNotFound) {
+        if (_numericCommand) {
             return YKIRCMessageTypeNumeric;
         } else {
             return YKIRCMessageTypeUnknown;
