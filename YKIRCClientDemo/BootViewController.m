@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _client.host = @"IRC host";
+    _client.host = @"IRC Host";
     _client.port = 6667;
 //    _client.pass = @"pass";
     _client.user.nick = @"nick";
@@ -40,7 +40,7 @@
 - (IBAction)joinChannel:(id)sender
 {
     NSString *channel = _joinChannelField.text;
-    [_client joinToChannel:channel];
+    [_client joinChannelTo:channel];
     _joinChannelField.text = nil;
     [_joinChannelField resignFirstResponder];
 }
@@ -48,7 +48,7 @@
 - (IBAction)partChannel:(id)sender
 {
     NSString *channel = _partChannelField.text;
-    [_client partFromChannel:channel];
+    [_client partChannelFrom:channel];
     _partChannelField.text = nil;
     [_partChannelField resignFirstResponder];
 }
@@ -68,10 +68,9 @@
     NSLog(@"Connected!");
 }
 
-- (void)ircClient:(YKIRCClient *)ircClient onReadData:(NSData *)data
+- (void)ircClient:(YKIRCClient *)ircClient onUnknownResponse:(YKIRCMessage *)message
 {
-    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSString *newText = [_textView.text stringByAppendingString:str];
+    NSString *newText = [_textView.text stringByAppendingString:message.rawMessage];
     _textView.text = newText;
 }
 
@@ -90,7 +89,11 @@
 - (void)ircClient:(YKIRCClient *)ircClient onNotice:(YKIRCMessage *)message
 {
     NSLog(@"notice ---------");
-    NSLog(@"sender: %@", message.sender);
+    if (message.user.nick) {
+        NSLog(@"nick: %@", message.user.nick);
+    } else {
+        NSLog(@"sender: %@", message.sender);
+    }
     NSLog(@"receiver: %@", message.params[0]);
     NSLog(@"text: %@", message.trail);
 }
@@ -98,13 +101,19 @@
 - (void)ircClient:(YKIRCClient *)ircClient onJoin:(YKIRCMessage *)message
 {
     NSLog(@"join ---------");
-    NSLog(@"%@ has joined to %@", message.user.nick, message.trail);
+    NSLog(@"%@ has joined to %@", message.user.nick, message.params[0]);
 }
 
 - (void)ircClient:(YKIRCClient *)ircClient onPart:(YKIRCMessage *)message
 {
     NSLog(@"part ---------");
     NSLog(@"%@ has left from %@ (%@)", message.user.nick, message.params[0], message.trail);
+}
+
+- (void)ircClient:(YKIRCClient *)ircClient onCommandResponse:(YKIRCMessage *)message
+{
+    NSLog(@"command ---------");
+    NSLog(@"%@", message.rawMessage);
 }
 
 @end

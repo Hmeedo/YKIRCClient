@@ -13,12 +13,17 @@
 
 @protocol YKIRCClientDeleate <NSObject>
 
+@optional
 - (void)ircClientOnConnected:(YKIRCClient *)ircClient;
-- (void)ircClient:(YKIRCClient *)ircClient onReadData:(NSData *)data;
+- (void)ircClient:(YKIRCClient *)ircClient onUnknownResponse:(YKIRCMessage *)message;
 - (void)ircClient:(YKIRCClient *)ircClient onNotice:(YKIRCMessage *)message;
 - (void)ircClient:(YKIRCClient *)ircClient onMessage:(YKIRCMessage *)message;
 - (void)ircClient:(YKIRCClient *)ircClient onJoin:(YKIRCMessage *)message;
 - (void)ircClient:(YKIRCClient *)ircClient onPart:(YKIRCMessage *)message;
+- (void)ircClient:(YKIRCClient *)ircClient onQuit:(YKIRCMessage *)message;
+- (void)ircClient:(YKIRCClient *)ircClient onMode:(YKIRCMessage *)message;
+- (void)ircClient:(YKIRCClient *)ircClient onTopic:(YKIRCMessage *)message;
+- (void)ircClient:(YKIRCClient *)ircClient onCommandResponse:(YKIRCMessage *)message;
 
 @end
 
@@ -32,8 +37,8 @@
 @property (nonatomic, strong) YKIRCUser *user;
 
 - (void)connect;
-- (void)joinToChannel:(NSString *)channel;
-- (void)partFromChannel:(NSString *)channel;
+- (void)joinChannelTo:(NSString *)channel;
+- (void)partChannelFrom:(NSString *)channel;
 
 - (void)sendRawString:(NSString *)string tag:(long)tag;
 - (void)sendMessage:(NSString *)message recipient:(NSString *)recipient;

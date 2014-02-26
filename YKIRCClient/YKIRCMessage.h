@@ -11,12 +11,14 @@ typedef NS_ENUM(NSUInteger, YKIRCMessageType) {
     YKIRCMessageTypeNotice,
     YKIRCMessageTypeQuit,
     YKIRCMessageTypeMode,
+    YKIRCMessageTypeTopic,
 };
 
 @interface YKIRCMessage : NSObject
 
-- (id)initWithMessage:(NSString *)message;
+- (id)initWithRawMessage:(NSString *)rawMessage;
 
+@property (nonatomic, copy) NSString *rawMessage;
 @property (nonatomic, strong, readonly) NSArray *params;
 @property (nonatomic, strong) YKIRCUser *user;
 @property (nonatomic, copy) NSString *sender;

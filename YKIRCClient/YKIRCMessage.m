@@ -12,10 +12,10 @@
 #define PING @"PING"
 #define QUIT @"QUIT"
 #define MODE @"MODE"
+#define TOPIC @"TOPIC"
 
 @interface YKIRCMessage ()
 
-@property (nonatomic, copy) NSString *message;
 @property (nonatomic, strong) NSMutableArray *parts;
 
 @end
@@ -52,11 +52,11 @@
     return _userRe;
 }
 
-- (id)initWithMessage:(NSString *)message
+- (id)initWithRawMessage:(NSString *)rawMessage
 {
     self = [super init];
     if (self) {
-        _message = message;
+        _rawMessage = rawMessage;
         _parts = @[].mutableCopy;
         [self parseMessage];
     }
@@ -65,16 +65,16 @@
 
 - (void)parseMessage
 {
-    NSArray *matches = [[[self class] messageRe] matchesInString:_message
+    NSArray *matches = [[[self class] messageRe] matchesInString:_rawMessage
                                                          options:NSMatchingReportProgress
-                                                           range:NSMakeRange(0, _message.length)];
+                                                           range:NSMakeRange(0, _rawMessage.length)];
     NSTextCheckingResult *result = matches[0];
     for (int i = 1; i < [result numberOfRanges]; i++) {
         NSRange r = [result rangeAtIndex:i];
         if (r.location == NSNotFound) {
             [_parts addObject:[NSNull null]];
         } else {
-            [_parts addObject:[_message substringWithRange:r]];
+            [_parts addObject:[_rawMessage substringWithRange:r]];
         }
     }
     
@@ -130,6 +130,7 @@
     else if ([_command isEqualToString:PING]) return YKIRCMessageTypePing;
     else if ([_command isEqualToString:QUIT]) return YKIRCMessageTypeQuit;
     else if ([_command isEqualToString:MODE]) return YKIRCMessageTypeMode;
+    else if ([_command isEqualToString:TOPIC]) return YKIRCMessageTypeTopic;
     else {
         if (_numericCommand) {
             return YKIRCMessageTypeNumeric;

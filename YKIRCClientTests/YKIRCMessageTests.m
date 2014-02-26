@@ -9,21 +9,21 @@
 
 - (void)testParseJoinMessage
 {
-    NSString *rawMessage = @":nick!~username@server JOIN :#test";
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    NSString *rawMessage = @":nick!~username@server JOIN #test";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
     XCTAssertNotNil(message.user);
     XCTAssertNil(message.sender);
     XCTAssertEqualObjects(message.user.nick, @"nick");
     XCTAssertEqualObjects(message.user.name, @"username");
     XCTAssertEqualObjects(message.user.server, @"server");
     XCTAssertEqual(message.type, YKIRCMessageTypeJoin);
-    XCTAssertEqualObjects(message.trail, @"#test");
+    XCTAssertEqualObjects(message.params[0], @"#test");
 }
 
 - (void)testParsePartMessage
 {
     NSString *rawMessage = @":nick!~username@server PART #test :Leaving...";
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
     XCTAssertNotNil(message.user);
     XCTAssertNil(message.sender);
     XCTAssertEqualObjects(message.user.nick, @"nick");
@@ -36,7 +36,7 @@
 
 - (void)testPingMessage
 {
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:@"PING 0"];
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:@"PING 0"];
     XCTAssertNil(message.user);
     XCTAssertNil(message.sender);
     XCTAssertEqual(message.type, YKIRCMessageTypePing);
@@ -46,7 +46,7 @@
 - (void)testPrivateMessageForChannel
 {
     NSString *rawMessage = @":nick!~username@server PRIVMSG #test :this is message";
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
     XCTAssertNotNil(message.user);
     XCTAssertNil(message.sender);
     XCTAssertEqualObjects(message.user.nick, @"nick");
@@ -60,7 +60,7 @@
 - (void)testPrivateMessageForPrivate
 {
     NSString *rawMessage = @":nick!~username@server PRIVMSG you :this is message";
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
     XCTAssertNotNil(message.user);
     XCTAssertNil(message.sender);
     XCTAssertEqualObjects(message.user.nick, @"nick");
@@ -74,7 +74,7 @@
 - (void)testNoticeMessageSimple
 {
     NSString *rawMessage = @":sender NOTICE #channel :this is message";
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
     XCTAssertNil(message.user);
     XCTAssertNotNil(message.sender);
     XCTAssertEqual(message.type, YKIRCMessageTypeNotice);
@@ -85,17 +85,17 @@
 - (void)testNoticeMessageNoPrefix
 {
     NSString *rawMessage = @"NOTICE nick :this is message";
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
     XCTAssertNil(message.user);
     XCTAssertEqual(message.type, YKIRCMessageTypeNotice);
     XCTAssertEqualObjects(message.params[0], @"nick");
     XCTAssertEqualObjects(message.trail, @"this is message");
 }
 
-- (void)testNumericalCommandMessage
+- (void)testNumericCommandMessage
 {
     NSString *rawMessage = @":sender 999 nick :this is message";
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
     XCTAssertNil(message.user);
     XCTAssertNotNil(message.sender);
     XCTAssertEqual(message.type, YKIRCMessageTypeNumeric);
@@ -106,7 +106,7 @@
 - (void)testUnknownCommandMessage
 {
     NSString *rawMessage = @":sender UNKNOWN nick :this is message";
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
     XCTAssertNil(message.user);
     XCTAssertNotNil(message.sender);
     XCTAssertEqual(message.type, YKIRCMessageTypeUnknown);
@@ -116,10 +116,13 @@
 
 - (void)testQuitCommandMessage
 {
-    NSString *rawMessage = @"QUIT :this is message";
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
-    XCTAssertNil(message.user);
+    NSString *rawMessage = @":nick!~user@server QUIT :this is message";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
+    XCTAssertNotNil(message.user);
     XCTAssertNil(message.sender);
+    XCTAssertEqualObjects(message.user.nick, @"nick");
+    XCTAssertEqualObjects(message.user.name, @"user");
+    XCTAssertEqualObjects(message.user.server, @"server");
     XCTAssertEqual(message.type, YKIRCMessageTypeQuit);
     XCTAssertEqualObjects(message.trail, @"this is message");
 }
@@ -127,7 +130,7 @@
 - (void)testModeCommandMessage
 {
     NSString *rawMessage = @":nick!~user@server MODE #channel +s";
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithMessage:rawMessage];
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
     XCTAssertNotNil(message.user);
     XCTAssertNil(message.sender);
     XCTAssertEqualObjects(message.user.nick, @"nick");
@@ -138,7 +141,19 @@
     XCTAssertEqualObjects(message.params[1], @"+s");
 }
 
-// :WiZ!jto@tolsun.oulu.fi TOPIC #test :New topic
+- (void)testTopicCommandMessage
+{
+    NSString *rawMessage = @":nick!~user@server TOPIC #channel :this is topic";
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
+    XCTAssertNotNil(message.user);
+    XCTAssertNil(message.sender);
+    XCTAssertEqualObjects(message.user.nick, @"nick");
+    XCTAssertEqualObjects(message.user.name, @"user");
+    XCTAssertEqualObjects(message.user.server, @"server");
+    XCTAssertEqual(message.type, YKIRCMessageTypeTopic);
+    XCTAssertEqualObjects(message.params[0], @"#channel");
+    XCTAssertEqualObjects(message.trail, @"this is topic");
+}
 
 // :tiarra 001 clouder :Welcome to the Internet Relay Network clouder!username@server
 // :tiarra 002 clouder :Your host is tiarra, running version 0.1+svn-38663M
