@@ -1,10 +1,13 @@
 #import "YKIRCClient.h"
 
-static NSTimeInterval const kYKIRCClientDefaultTimeout = 60;
-static NSUInteger const kYKIRCClientSockTagPass = 0;
-static NSUInteger const kYKIRCClientSockTagNick = 1;
-static NSUInteger const kYKIRCClientSockTagUser = 2;
-static NSUInteger const kYKIRCClientSockTagPong = 3;
+NSTimeInterval const kYKIRCClientDefaultTimeout = 60;
+NSUInteger const kYKIRCClientSockTagPass = 0;
+NSUInteger const kYKIRCClientSockTagNick = 1;
+NSUInteger const kYKIRCClientSockTagUser = 2;
+NSUInteger const kYKIRCClientSockTagPong = 3;
+NSUInteger const kYKIRCClientSockTagPrivMsg = 4;
+NSUInteger const kYKIRCClientSockTagJoin = 5;
+NSUInteger const kYKIRCClientSockTagPart = 6;
 
 @interface YKIRCClient ()
 
@@ -40,7 +43,7 @@ static NSUInteger const kYKIRCClientSockTagPong = 3;
 {
     if (_sock.isConnected) {
         [self sendRawString:[NSString stringWithFormat:@"JOIN %@", channel]
-                        tag:0];
+                        tag:kYKIRCClientSockTagJoin];
     } else {
         YKIRCLog(@"No connect yet.");
     }
@@ -50,7 +53,7 @@ static NSUInteger const kYKIRCClientSockTagPong = 3;
 {
     if (_sock.isConnected) {
         [self sendRawString:[NSString stringWithFormat:@"PART %@", channel]
-                        tag:0];
+                        tag:kYKIRCClientSockTagPart];
     } else {
         YKIRCLog(@"No connect yet.");
     }
@@ -66,8 +69,8 @@ static NSUInteger const kYKIRCClientSockTagPong = 3;
 
 - (void)sendMessage:(NSString *)message recipient:(NSString *)recipient
 {
-    NSString *msg = [NSString stringWithFormat:@"PRIVMSG %@ %@", recipient, message];
-    [self sendRawString:msg tag:0];
+    [self sendRawString:[NSString stringWithFormat:@"PRIVMSG %@ %@", recipient, message]
+                    tag:kYKIRCClientSockTagPrivMsg];
 }
 
 #pragma mark - Private methods
@@ -112,6 +115,10 @@ static NSUInteger const kYKIRCClientSockTagPong = 3;
             break;
         case kYKIRCClientSockTagUser:
             [self.delegate ircClientOnConnected:self];
+            break;
+        case kYKIRCClientSockTagPrivMsg:
+        case kYKIRCClientSockTagJoin:
+        case kYKIRCClientSockTagPart:
             break;
         default:
             break;

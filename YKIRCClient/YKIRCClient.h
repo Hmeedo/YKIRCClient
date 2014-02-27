@@ -9,6 +9,15 @@
 #define YKIRCLog(fmt, ...)
 #endif
 
+extern NSTimeInterval const kYKIRCClientDefaultTimeout;
+extern NSUInteger const kYKIRCClientSockTagPass;
+extern NSUInteger const kYKIRCClientSockTagNick;
+extern NSUInteger const kYKIRCClientSockTagUser;
+extern NSUInteger const kYKIRCClientSockTagPong;
+extern NSUInteger const kYKIRCClientSockTagPrivMsg;
+extern NSUInteger const kYKIRCClientSockTagJoin;
+extern NSUInteger const kYKIRCClientSockTagPart;
+
 @class YKIRCClient;
 
 @protocol YKIRCClientDeleate <NSObject>
