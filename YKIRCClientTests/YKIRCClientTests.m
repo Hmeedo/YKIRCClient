@@ -6,6 +6,13 @@
 - (void)sendPass;
 - (void)sendNick;
 - (void)sendUser;
+- (YKIRCMessage *)messageWithRawMessage:(NSString *)rawMessage;
+
+@end
+
+@interface YKIRCMessage ()
+
+- (void)parseMessage;
 
 @end
 
@@ -61,7 +68,6 @@
     NSString *host = @"example.com";
     UInt16 port = 80;
     
-    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     YKIRCClient *client = [[YKIRCClient alloc] init];
     client.host = host;
     client.port = port;
@@ -69,6 +75,7 @@
     id clientMock = [OCMockObject partialMockForObject:client];
     [[clientMock expect] sendNick];
     
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     [client onSocket:sockMock didConnectToHost:host port:port];
     [clientMock verify];
 }
@@ -79,7 +86,6 @@
     UInt16 port = 80;
     NSString *pass = @"pass";
     
-    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     YKIRCClient *client = [[YKIRCClient alloc] init];
     client.host = host;
     client.port = port;
@@ -88,6 +94,7 @@
     id clientMock = [OCMockObject partialMockForObject:client];
     [[clientMock expect] sendPass];
     
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     [client onSocket:sockMock didConnectToHost:host port:port];
     [clientMock verify];
 }
@@ -98,7 +105,6 @@
     UInt16 port = 80;
     NSString *pass = @"pass";
     
-    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     YKIRCClient *client = [[YKIRCClient alloc] init];
     client.host = host;
     client.port = port;
@@ -107,6 +113,7 @@
     id clientMock = [OCMockObject partialMockForObject:client];
     [[clientMock expect] sendNick];
     
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     [client onSocket:sockMock didWriteDataWithTag:kYKIRCClientSockTagPass];
     [clientMock verify];
 }
@@ -116,7 +123,6 @@
     NSString *host = @"example.com";
     UInt16 port = 80;
     
-    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     YKIRCClient *client = [[YKIRCClient alloc] init];
     client.host = host;
     client.port = port;
@@ -124,25 +130,50 @@
     id clientMock = [OCMockObject partialMockForObject:client];
     [[clientMock expect] sendUser];
     
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     [client onSocket:sockMock didWriteDataWithTag:kYKIRCClientSockTagNick];
     [clientMock verify];
 }
 
 - (void)testCallConnectedDelegate
 {
-    NSString *host = @"example.com";
-    UInt16 port = 80;
+    id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
+    YKIRCClient *client = [[YKIRCClient alloc] init];
+    client.delegate = delegateMock;
+
+    [[delegateMock expect] ircClientOnConnected:client];
     
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didWriteDataWithTag:kYKIRCClientSockTagUser];
+    [delegateMock verify];
+}
+
+- (void)testInvalidReadData
+{
+    id messageMock = [OCMockObject mockForClass:[YKIRCMessage class]];
+    [[[messageMock stub] andDo:^(NSInvocation *invocation) {
+        XCTFail(@"Cannot call"); //TODO: not call?
+    }] parseMessage];
+
+    YKIRCClient *client = [[YKIRCClient alloc] init];
+    id clientMock = [OCMockObject partialMockForObject:client];
+    [[[clientMock stub] andReturn:messageMock] messageWithRawMessage:nil];
+
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:[NSData data] withTag:0];
+}
+
+- (void)testCallOnMessage
+{
     id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
     YKIRCClient *client = [[YKIRCClient alloc] init];
     client.delegate = delegateMock;
-    client.host = host;
-    client.port = port;
     
-    [[delegateMock expect] ircClientOnConnected:client];
+    [[delegateMock expect] ircClient:client onMessage:OCMOCK_ANY];
     
-    [client onSocket:sockMock didWriteDataWithTag:kYKIRCClientSockTagUser];
+    NSData *data = [@":sender PRIVMSG #channel :message" dataUsingEncoding:NSUTF8StringEncoding];
+    [client onSocket:sockMock didReadData:data withTag:YKIRCMessageTypePrivMsg];
     [delegateMock verify];
 }
 

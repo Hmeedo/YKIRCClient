@@ -90,6 +90,11 @@ NSUInteger const kYKIRCClientSockTagPart = 6;
                     tag:kYKIRCClientSockTagUser];
 }
 
+- (YKIRCMessage *)messageWithRawMessage:(NSString *)rawMessage
+{
+    return [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
+}
+
 #pragma mark - AsyncSocketDelegate
 
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
@@ -127,52 +132,56 @@ NSUInteger const kYKIRCClientSockTagPart = 6;
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    NSString *receivedMessage = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    YKIRCLog(@"<<< %@", receivedMessage);
-    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:receivedMessage];
-    switch (message.type) {
-        case YKIRCMessageTypePrivMsg:
-            if ([self.delegate respondsToSelector:@selector(ircClient:onMessage:)])
-                [self.delegate ircClient:self onMessage:message];
-            break;
-        case YKIRCMessageTypeNotice:
-            if ([self.delegate respondsToSelector:@selector(ircClient:onNotice:)])
-                [self.delegate ircClient:self onNotice:message];
-            break;
-        case YKIRCMessageTypePing:
-            [self sendRawString:@"PONG 0" tag:kYKIRCClientSockTagPong];
-            break;
-        case YKIRCMessageTypeJoin:
-            if ([self.delegate respondsToSelector:@selector(ircClient:onJoin:)])
-                [self.delegate ircClient:self onJoin:message];
-            break;
-        case YKIRCMessageTypePart:
-            if ([self.delegate respondsToSelector:@selector(ircClient:onPart:)])
-                [self.delegate ircClient:self onPart:message];
-            break;
-        case YKIRCMessageTypeNumeric:
-            if ([self.delegate respondsToSelector:@selector(ircClient:onCommandResponse:)])
-                [self.delegate ircClient:self onCommandResponse:message];
-            break;
-        case YKIRCMessageTypeUnknown:
-            if ([self.delegate respondsToSelector:@selector(ircClient:onUnknownResponse:)])
-                [self.delegate ircClient:self onUnknownResponse:message];
-            break;
-        case YKIRCMessageTypeQuit:
-            if ([self.delegate respondsToSelector:@selector(ircClient:onQuit:)])
-                [self.delegate ircClient:self onQuit:message];
-            break;
-        case YKIRCMessageTypeMode:
-            if ([self.delegate respondsToSelector:@selector(ircClient:onMode:)])
-                [self.delegate ircClient:self onMode:message];
-            break;
-        case YKIRCMessageTypeTopic:
-            if ([self.delegate respondsToSelector:@selector(ircClient:onTopic:)])
-                [self.delegate ircClient:self onTopic:message];
-            break;
-        default:
-            YKIRCLog(@"Received invalid response: %@", receivedMessage);
-            break;
+    if (!data) {
+        YKIRCLog(@"Received null message");
+    } else {
+        NSString *receivedMessage = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        YKIRCLog(@"<<< %@", receivedMessage);
+        YKIRCMessage *message = [self messageWithRawMessage:receivedMessage];
+        switch (message.type) {
+            case YKIRCMessageTypePrivMsg:
+                if ([self.delegate respondsToSelector:@selector(ircClient:onMessage:)])
+                    [self.delegate ircClient:self onMessage:message];
+                break;
+            case YKIRCMessageTypeNotice:
+                if ([self.delegate respondsToSelector:@selector(ircClient:onNotice:)])
+                    [self.delegate ircClient:self onNotice:message];
+                break;
+            case YKIRCMessageTypePing:
+                [self sendRawString:@"PONG 0" tag:kYKIRCClientSockTagPong];
+                break;
+            case YKIRCMessageTypeJoin:
+                if ([self.delegate respondsToSelector:@selector(ircClient:onJoin:)])
+                    [self.delegate ircClient:self onJoin:message];
+                break;
+            case YKIRCMessageTypePart:
+                if ([self.delegate respondsToSelector:@selector(ircClient:onPart:)])
+                    [self.delegate ircClient:self onPart:message];
+                break;
+            case YKIRCMessageTypeNumeric:
+                if ([self.delegate respondsToSelector:@selector(ircClient:onCommandResponse:)])
+                    [self.delegate ircClient:self onCommandResponse:message];
+                break;
+            case YKIRCMessageTypeUnknown:
+                if ([self.delegate respondsToSelector:@selector(ircClient:onUnknownResponse:)])
+                    [self.delegate ircClient:self onUnknownResponse:message];
+                break;
+            case YKIRCMessageTypeQuit:
+                if ([self.delegate respondsToSelector:@selector(ircClient:onQuit:)])
+                    [self.delegate ircClient:self onQuit:message];
+                break;
+            case YKIRCMessageTypeMode:
+                if ([self.delegate respondsToSelector:@selector(ircClient:onMode:)])
+                    [self.delegate ircClient:self onMode:message];
+                break;
+            case YKIRCMessageTypeTopic:
+                if ([self.delegate respondsToSelector:@selector(ircClient:onTopic:)])
+                    [self.delegate ircClient:self onTopic:message];
+                break;
+            default:
+                YKIRCLog(@"Received invalid response: %@", receivedMessage);
+                break;
+        }
     }
 
 	if ([sock isConnected])

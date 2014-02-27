@@ -68,6 +68,8 @@
     NSArray *matches = [[[self class] messageRe] matchesInString:_rawMessage
                                                          options:NSMatchingReportProgress
                                                            range:NSMakeRange(0, _rawMessage.length)];
+    if (!matches.count) return;
+    
     NSTextCheckingResult *result = matches[0];
     for (int i = 1; i < [result numberOfRanges]; i++) {
         NSRange r = [result rangeAtIndex:i];
