@@ -1,11 +1,35 @@
 #import <XCTest/XCTest.h>
 #import "YKIRCMessage.h"
 
+@interface YKIRCMessage ()
+
+@property (nonatomic, strong) NSMutableArray *parts;
+
+- (void)parseMessage;
+
+@end
+
 @interface YKIRCMessageTests : XCTestCase
 
 @end
 
 @implementation YKIRCMessageTests
+
+- (void)testRawMessageIsEmpty
+{
+    YKIRCMessage *message = [YKIRCMessage alloc];
+    id messageMock = [OCMockObject partialMockForObject:message];
+    [[[messageMock expect] andDo:^(NSInvocation *invocation) {
+        XCTFail(@"Should not call this");
+    }] parseMessage];
+    (void)[message initWithRawMessage:nil];
+}
+
+- (void)testParseMessageWithInvalidRawMessage
+{
+    YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:@"      "];
+    XCTAssert(message.parts.count == 0);
+}
 
 - (void)testParseJoinMessage
 {

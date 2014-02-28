@@ -148,24 +148,8 @@
     [delegateMock verify];
 }
 
-- (void)testInvalidReadData
-{
-    id messageMock = [OCMockObject mockForClass:[YKIRCMessage class]];
-    [[[messageMock stub] andDo:^(NSInvocation *invocation) {
-        XCTFail(@"Cannot call"); //TODO: not call?
-    }] parseMessage];
-
-    YKIRCClient *client = [[YKIRCClient alloc] init];
-    id clientMock = [OCMockObject partialMockForObject:client];
-    [[[clientMock stub] andReturn:messageMock] messageWithRawMessage:nil];
-
-    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
-    [client onSocket:sockMock didReadData:[NSData data] withTag:0];
-}
-
 - (void)testCallOnMessage
 {
-    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
     YKIRCClient *client = [[YKIRCClient alloc] init];
     client.delegate = delegateMock;
@@ -173,7 +157,132 @@
     [[delegateMock expect] ircClient:client onMessage:OCMOCK_ANY];
     
     NSData *data = [@":sender PRIVMSG #channel :message" dataUsingEncoding:NSUTF8StringEncoding];
-    [client onSocket:sockMock didReadData:data withTag:YKIRCMessageTypePrivMsg];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    [delegateMock verify];
+}
+
+- (void)testCallOnNotice
+{
+    id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
+    YKIRCClient *client = [[YKIRCClient alloc] init];
+    client.delegate = delegateMock;
+    
+    [[delegateMock expect] ircClient:client onNotice:OCMOCK_ANY];
+    
+    NSData *data = [@":sender NOTICE :message" dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    [delegateMock verify];
+}
+
+- (void)testCallOnPing
+{
+    YKIRCClient *client = [[YKIRCClient alloc] init];
+    id clientMock = [OCMockObject partialMockForObject:client];
+    [[clientMock expect] sendRawString:@"PONG 0" tag:kYKIRCClientSockTagPong];
+
+    NSData *data = [@"PING server" dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [clientMock onSocket:sockMock didReadData:data withTag:0];
+    [clientMock verify];
+}
+
+- (void)testCallOnJoin
+{
+    id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
+    YKIRCClient *client = [[YKIRCClient alloc] init];
+    client.delegate = delegateMock;
+    
+    [[delegateMock expect] ircClient:client onJoin:OCMOCK_ANY];
+    
+    NSData *data = [@":sender JOIN #channel" dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    [delegateMock verify];
+}
+
+- (void)testCallOnPart
+{
+    id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
+    YKIRCClient *client = [[YKIRCClient alloc] init];
+    client.delegate = delegateMock;
+    
+    [[delegateMock expect] ircClient:client onPart:OCMOCK_ANY];
+    
+    NSData *data = [@":sender PART #channel :Disconnect" dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    [delegateMock verify];
+}
+
+- (void)testCallOnNumeric
+{
+    id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
+    YKIRCClient *client = [[YKIRCClient alloc] init];
+    client.delegate = delegateMock;
+    
+    [[delegateMock expect] ircClient:client onCommandResponse:OCMOCK_ANY];
+    
+    NSData *data = [@":sender 333 foo :bar" dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    [delegateMock verify];
+}
+
+- (void)testCallOnUnknown
+{
+    id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
+    YKIRCClient *client = [[YKIRCClient alloc] init];
+    client.delegate = delegateMock;
+    
+    [[delegateMock expect] ircClient:client onUnknownResponse:OCMOCK_ANY];
+    
+    NSData *data = [@":sender" dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    [delegateMock verify];
+}
+
+- (void)testCallOnQuit
+{
+    id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
+    YKIRCClient *client = [[YKIRCClient alloc] init];
+    client.delegate = delegateMock;
+    
+    [[delegateMock expect] ircClient:client onQuit:OCMOCK_ANY];
+    
+    NSData *data = [@":sender QUIT :Disconnect" dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    [delegateMock verify];
+}
+
+- (void)testCallOnMode
+{
+    id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
+    YKIRCClient *client = [[YKIRCClient alloc] init];
+    client.delegate = delegateMock;
+    
+    [[delegateMock expect] ircClient:client onMode:OCMOCK_ANY];
+    
+    NSData *data = [@":sender MODE #channel +sn" dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    [delegateMock verify];
+}
+
+- (void)testCallOnTopic
+{
+    id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
+    YKIRCClient *client = [[YKIRCClient alloc] init];
+    client.delegate = delegateMock;
+    
+    [[delegateMock expect] ircClient:client onTopic:OCMOCK_ANY];
+    
+    NSData *data = [@":sender TOPIC #channel :new topic" dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
     [delegateMock verify];
 }
 

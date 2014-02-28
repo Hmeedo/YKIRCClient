@@ -90,11 +90,6 @@ NSUInteger const kYKIRCClientSockTagPart = 6;
                     tag:kYKIRCClientSockTagUser];
 }
 
-- (YKIRCMessage *)messageWithRawMessage:(NSString *)rawMessage
-{
-    return [[YKIRCMessage alloc] initWithRawMessage:rawMessage];
-}
-
 #pragma mark - AsyncSocketDelegate
 
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
@@ -137,7 +132,7 @@ NSUInteger const kYKIRCClientSockTagPart = 6;
     } else {
         NSString *receivedMessage = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         YKIRCLog(@"<<< %@", receivedMessage);
-        YKIRCMessage *message = [self messageWithRawMessage:receivedMessage];
+        YKIRCMessage *message = [[YKIRCMessage alloc] initWithRawMessage:receivedMessage];
         switch (message.type) {
             case YKIRCMessageTypePrivMsg:
                 if ([self.delegate respondsToSelector:@selector(ircClient:onMessage:)])

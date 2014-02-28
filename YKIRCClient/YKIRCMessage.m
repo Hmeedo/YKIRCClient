@@ -58,7 +58,8 @@
     if (self) {
         _rawMessage = rawMessage;
         _parts = @[].mutableCopy;
-        [self parseMessage];
+        if (rawMessage.length)
+            [self parseMessage];
     }
     return self;
 }
