@@ -36,13 +36,13 @@
 
 - (void)testInit
 {
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     XCTAssertEqualObjects(client.sock.delegate, client);
 }
 
 - (void)testUser
 {
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     XCTAssertNotNil(client.user);
 }
 
@@ -52,7 +52,7 @@
     UInt16 port = 80;
     
     id sockMock = [OCMockObject mockForClass:[AsyncSocket class]];
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.sock = sockMock;
     client.host = host;
     client.port = port;
@@ -68,7 +68,7 @@
     NSString *host = @"example.com";
     UInt16 port = 80;
     
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.host = host;
     client.port = port;
     
@@ -86,7 +86,7 @@
     UInt16 port = 80;
     NSString *pass = @"pass";
     
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.host = host;
     client.port = port;
     client.pass = pass;
@@ -105,7 +105,7 @@
     UInt16 port = 80;
     NSString *pass = @"pass";
     
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.host = host;
     client.port = port;
     client.pass = pass;
@@ -123,7 +123,7 @@
     NSString *host = @"example.com";
     UInt16 port = 80;
     
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.host = host;
     client.port = port;
     
@@ -138,7 +138,7 @@
 - (void)testCallConnectedDelegate
 {
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.delegate = delegateMock;
 
     [[delegateMock expect] ircClientOnConnected:client];
@@ -151,7 +151,7 @@
 - (void)testCallOnMessage
 {
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.delegate = delegateMock;
     
     [[delegateMock expect] ircClient:client onMessage:OCMOCK_ANY];
@@ -165,7 +165,7 @@
 - (void)testCallOnNotice
 {
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.delegate = delegateMock;
     
     [[delegateMock expect] ircClient:client onNotice:OCMOCK_ANY];
@@ -178,11 +178,11 @@
 
 - (void)testCallOnPing
 {
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     id clientMock = [OCMockObject partialMockForObject:client];
     [[clientMock expect] sendRawString:@"PONG 0" tag:kYKIRCClientSockTagPong];
 
-    NSData *data = [@"PING server" dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [@"PING host" dataUsingEncoding:NSUTF8StringEncoding];
     id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     [clientMock onSocket:sockMock didReadData:data withTag:0];
     [clientMock verify];
@@ -191,7 +191,7 @@
 - (void)testCallOnJoin
 {
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.delegate = delegateMock;
     
     [[delegateMock expect] ircClient:client onJoin:OCMOCK_ANY];
@@ -205,7 +205,7 @@
 - (void)testCallOnPart
 {
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.delegate = delegateMock;
     
     [[delegateMock expect] ircClient:client onPart:OCMOCK_ANY];
@@ -219,7 +219,7 @@
 - (void)testCallOnNumeric
 {
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.delegate = delegateMock;
     
     [[delegateMock expect] ircClient:client onCommandResponse:OCMOCK_ANY];
@@ -233,7 +233,7 @@
 - (void)testCallOnUnknown
 {
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.delegate = delegateMock;
     
     [[delegateMock expect] ircClient:client onUnknownResponse:OCMOCK_ANY];
@@ -247,7 +247,7 @@
 - (void)testCallOnQuit
 {
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.delegate = delegateMock;
     
     [[delegateMock expect] ircClient:client onQuit:OCMOCK_ANY];
@@ -261,7 +261,7 @@
 - (void)testCallOnMode
 {
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.delegate = delegateMock;
     
     [[delegateMock expect] ircClient:client onMode:OCMOCK_ANY];
@@ -275,7 +275,7 @@
 - (void)testCallOnTopic
 {
     id delegateMock = [OCMockObject mockForProtocol:@protocol(YKIRCClientDeleate)];
-    YKIRCClient *client = [[YKIRCClient alloc] init];
+    YKIRCClient *client = [YKIRCClient new];
     client.delegate = delegateMock;
     
     [[delegateMock expect] ircClient:client onTopic:OCMOCK_ANY];
@@ -284,6 +284,69 @@
     id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     [client onSocket:sockMock didReadData:data withTag:0];
     [delegateMock verify];
+}
+
+- (void)testWelcome
+{
+    YKIRCClient *client = [YKIRCClient new];
+    NSString *trail = @"Welcome to the Internet Relay Network nick!user@host";
+    NSString *rawMessage = [NSString stringWithFormat:@":sender 001 :%@", trail];
+    NSData *data = [rawMessage dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    XCTAssertEqualObjects(client.serverReply.welcome, trail);
+}
+
+- (void)testYourHost
+{
+    YKIRCClient *client = [YKIRCClient new];
+    NSString *trail = @"Your host is <servername>, running version <ver>";
+    NSString *rawMessage = [NSString stringWithFormat:@":sender 002 :%@", trail];
+    NSData *data = [rawMessage dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    XCTAssertEqualObjects(client.serverReply.yourHost, trail);
+}
+
+- (void)testCreated
+{
+    YKIRCClient *client = [YKIRCClient new];
+    NSString *trail = @"This server was created <date>";
+    NSString *rawMessage = [NSString stringWithFormat:@":sender 003 :%@", trail];
+    NSData *data = [rawMessage dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    XCTAssertEqualObjects(client.serverReply.created, trail);
+}
+
+- (void)testMyInfo
+{
+    YKIRCClient *client = [YKIRCClient new];
+    NSString *trail = @"<servername> <version> <available user modes> <available channel modes>";
+    NSString *rawMessage = [NSString stringWithFormat:@":sender 004 :%@", trail];
+    NSData *data = [rawMessage dataUsingEncoding:NSUTF8StringEncoding];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    [client onSocket:sockMock didReadData:data withTag:0];
+    XCTAssertEqualObjects(client.serverReply.myInfo, trail);
+}
+
+- (void)testMotd
+{
+    YKIRCClient *client = [YKIRCClient new];
+    NSArray *cmds = @[ @(375), @(372), @(376) ];
+    NSDictionary *trails = @{
+                             @(375): @"- <server> Message of the day -",
+                             @(372): @"<text>",
+                             @(376): @"End of MOTD Command",
+                             };
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    for (NSNumber *cmd in cmds) {
+        NSString *rawMessage = [NSString stringWithFormat:@":sender %d :%@", [cmd integerValue], trails[cmd]];
+        NSData *data = [rawMessage dataUsingEncoding:NSUTF8StringEncoding];
+        [client onSocket:sockMock didReadData:data withTag:0];
+    }
+    XCTAssertEqualObjects(client.serverReply.motd,
+                          @"- <server> Message of the day -\n<text>\nEnd of MOTD Command");
 }
 
 @end

@@ -9,6 +9,15 @@ NSUInteger const kYKIRCClientSockTagPrivMsg = 4;
 NSUInteger const kYKIRCClientSockTagJoin = 5;
 NSUInteger const kYKIRCClientSockTagPart = 6;
 
+NSUInteger const kYKIRCClientReplyCommandWelcome = 1;
+NSUInteger const kYKIRCClientReplyCommandYourHost = 2;
+NSUInteger const kYKIRCClientReplyCommandCreated = 3;
+NSUInteger const kYKIRCClientReplyCommandMyInfo = 4;
+
+NSUInteger const kYKIRCClientReplyCommandMotdStart = 375;
+NSUInteger const kYKIRCClientReplyCommandMotd = 372;
+NSUInteger const kYKIRCClientReplyCommandEndOfMotd = 376;
+
 @interface YKIRCClient ()
 
 @end
@@ -32,6 +41,14 @@ NSUInteger const kYKIRCClientSockTagPart = 6;
         _user = [YKIRCUser new];
     }
     return _user;
+}
+
+- (YKIRCServerReply *)serverReply
+{
+    if (!_serverReply) {
+        _serverReply = [YKIRCServerReply new];
+    }
+    return _serverReply;
 }
 
 - (void)connect
@@ -75,19 +92,51 @@ NSUInteger const kYKIRCClientSockTagPart = 6;
 
 #pragma mark - Private methods
 
-- (void)sendPass {
+- (void)sendPass
+{
     [self sendRawString:[NSString stringWithFormat:@"PASS %@", _pass]
                     tag:kYKIRCClientSockTagPass];
 }
 
-- (void)sendNick {
-    [self sendRawString:[NSString stringWithFormat:@"NICK %@", _user.nick]
+- (void)sendNick
+{
+    [self sendRawString:[NSString stringWithFormat:@"NICK %@", self.user.nick]
                     tag:kYKIRCClientSockTagNick];
 }
 
-- (void)sendUser {
-    [self sendRawString:[NSString stringWithFormat:@"USER %@ %d * :%@", _user.name, _user.mode, _user.realName]
+- (void)sendUser
+{
+    [self sendRawString:[NSString stringWithFormat:@"USER %@ %d * :%@", self.user.name, self.user.mode, self.user.realName]
                     tag:kYKIRCClientSockTagUser];
+}
+
+- (void)parseNumericCommandWithMessage:(YKIRCMessage *)message
+{
+    switch (message.numericCommand) {
+        case kYKIRCClientReplyCommandWelcome:
+            self.serverReply.welcome = message.trail;
+            break;
+        case kYKIRCClientReplyCommandYourHost:
+            self.serverReply.yourHost = message.trail;
+            break;
+        case kYKIRCClientReplyCommandCreated:
+            self.serverReply.created = message.trail;
+            break;
+        case kYKIRCClientReplyCommandMyInfo:
+            self.serverReply.myInfo = message.trail;
+            break;
+        case kYKIRCClientReplyCommandMotdStart:
+            self.serverReply.motd = message.trail;
+            break;
+        case kYKIRCClientReplyCommandMotd:
+        case kYKIRCClientReplyCommandEndOfMotd: {
+            NSString *text = [NSString stringWithFormat:@"\n%@", message.trail];
+            self.serverReply.motd = [self.serverReply.motd stringByAppendingString:text];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 #pragma mark - AsyncSocketDelegate
@@ -154,6 +203,7 @@ NSUInteger const kYKIRCClientSockTagPart = 6;
                     [self.delegate ircClient:self onPart:message];
                 break;
             case YKIRCMessageTypeNumeric:
+                [self parseNumericCommandWithMessage:message];
                 if ([self.delegate respondsToSelector:@selector(ircClient:onCommandResponse:)])
                     [self.delegate ircClient:self onCommandResponse:message];
                 break;

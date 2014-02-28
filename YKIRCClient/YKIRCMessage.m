@@ -58,6 +58,7 @@
     if (self) {
         _rawMessage = rawMessage;
         _parts = @[].mutableCopy;
+        _numericCommand = NSNotFound;
         if (rawMessage.length)
             [self parseMessage];
     }
@@ -84,9 +85,10 @@
     [self parsePrefix];
     
     _command = [_parts objectAtIndex:kYKIRCMessagePartsCommand];
-    NSRange range = [_command rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]];
-    if (range.location != NSNotFound) {
-        _numericCommand = [[_command substringWithRange:range] integerValue];
+    NSCharacterSet *stringCharacterSet = [NSCharacterSet characterSetWithCharactersInString:_command];
+    NSCharacterSet *digitCharacterSet = [NSCharacterSet decimalDigitCharacterSet];
+    if ([digitCharacterSet isSupersetOfSet:stringCharacterSet]) {
+        _numericCommand = [_command integerValue];
     }
 
     NSString *params = [_parts objectAtIndex:kYKIRCMessagePartsParams];
@@ -135,7 +137,7 @@
     else if ([_command isEqualToString:MODE]) return YKIRCMessageTypeMode;
     else if ([_command isEqualToString:TOPIC]) return YKIRCMessageTypeTopic;
     else {
-        if (_numericCommand) {
+        if (_numericCommand != NSNotFound) {
             return YKIRCMessageTypeNumeric;
         } else {
             return YKIRCMessageTypeUnknown;

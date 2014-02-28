@@ -2,6 +2,7 @@
 #import <CocoaAsyncSocket/AsyncSocket.h>
 #import "YKIRCMessage.h"
 #import "YKIRCUser.h"
+#import "YKIRCServerReply.h"
 
 #if DEBUG
 #define YKIRCLog(fmt, ...) NSLog(fmt, ##__VA_ARGS__)
@@ -17,6 +18,12 @@ extern NSUInteger const kYKIRCClientSockTagPong;
 extern NSUInteger const kYKIRCClientSockTagPrivMsg;
 extern NSUInteger const kYKIRCClientSockTagJoin;
 extern NSUInteger const kYKIRCClientSockTagPart;
+
+extern NSUInteger const kYKIRCClientReplyCommandWelcome;
+extern NSUInteger const kYKIRCClientReplyCommandYourHost;
+extern NSUInteger const kYKIRCClientReplyCommandCreated;
+extern NSUInteger const kYKIRCClientReplyCommandMyInfo;
+extern NSUInteger const kYKIRCClientReplyCommandBounce;
 
 @class YKIRCClient;
 
@@ -44,6 +51,7 @@ extern NSUInteger const kYKIRCClientSockTagPart;
 @property (nonatomic, assign) UInt16 port;
 @property (nonatomic, copy) NSString *pass;
 @property (nonatomic, strong) YKIRCUser *user;
+@property (nonatomic, strong) YKIRCServerReply *serverReply;
 
 - (void)connect;
 - (void)joinChannelTo:(NSString *)channel;
