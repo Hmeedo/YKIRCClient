@@ -25,6 +25,7 @@
 		D6052D1A18BC80FF00D379DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8449D82E18B8EB44004A18F9 /* UIKit.framework */; };
 		D6052D2018BC80FF00D379DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D6052D1E18BC80FF00D379DB /* InfoPlist.strings */; };
 		D6052D2218BC80FF00D379DB /* YKIRCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6052D2118BC80FF00D379DB /* YKIRCClientTests.m */; };
+		D6183E1518C5D2880072336B /* YKIRCChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6183E1418C5D2880072336B /* YKIRCChannel.m */; };
 		D623ABF718BC87E20083EB02 /* YKIRCMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D623ABF618BC87E20083EB02 /* YKIRCMessageTests.m */; };
 		D69E063E18C0957100CA79FF /* YKIRCServerReply.m in Sources */ = {isa = PBXBuildFile; fileRef = D69E063D18C0957100CA79FF /* YKIRCServerReply.m */; };
 		DE31955FBBD74CAABCF57896 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D8174BB60B466BB7C21917 /* libPods.a */; };
@@ -71,6 +72,8 @@
 		D6052D1F18BC80FF00D379DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D6052D2118BC80FF00D379DB /* YKIRCClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YKIRCClientTests.m; sourceTree = "<group>"; };
 		D6052D2318BC80FF00D379DB /* YKIRCClientTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YKIRCClientTests-Prefix.pch"; sourceTree = "<group>"; };
+		D6183E1318C5D2880072336B /* YKIRCChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKIRCChannel.h; sourceTree = "<group>"; };
+		D6183E1418C5D2880072336B /* YKIRCChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKIRCChannel.m; sourceTree = "<group>"; };
 		D623ABF618BC87E20083EB02 /* YKIRCMessageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKIRCMessageTests.m; sourceTree = "<group>"; };
 		D69E063C18C0957100CA79FF /* YKIRCServerReply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YKIRCServerReply.h; path = YKIRCClient/YKIRCServerReply.h; sourceTree = "<group>"; };
 		D69E063D18C0957100CA79FF /* YKIRCServerReply.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YKIRCServerReply.m; path = YKIRCClient/YKIRCServerReply.m; sourceTree = "<group>"; };
@@ -173,6 +176,8 @@
 				8440E7A118BBACB40070F323 /* YKIRCUser.m */,
 				D69E063C18C0957100CA79FF /* YKIRCServerReply.h */,
 				D69E063D18C0957100CA79FF /* YKIRCServerReply.m */,
+				D6183E1318C5D2880072336B /* YKIRCChannel.h */,
+				D6183E1418C5D2880072336B /* YKIRCChannel.m */,
 			);
 			name = YKIRCClient;
 			sourceTree = "<group>";
@@ -364,6 +369,7 @@
 				8449D83B18B8EB44004A18F9 /* AppDelegate.m in Sources */,
 				8449D83718B8EB44004A18F9 /* main.m in Sources */,
 				D6052BDD18BB61FD00D379DB /* YKIRCMessage.m in Sources */,
+				D6183E1518C5D2880072336B /* YKIRCChannel.m in Sources */,
 				8440E7A218BBACB40070F323 /* YKIRCUser.m in Sources */,
 				8449D86318B8EC55004A18F9 /* BootViewController.m in Sources */,
 				8449D85C18B8EB9E004A18F9 /* YKIRCClient.m in Sources */,

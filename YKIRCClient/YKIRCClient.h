@@ -3,6 +3,7 @@
 #import "YKIRCMessage.h"
 #import "YKIRCUser.h"
 #import "YKIRCServerReply.h"
+#import "YKIRCChannel.h"
 
 #if DEBUG
 #define YKIRCLog(fmt, ...) NSLog(fmt, ##__VA_ARGS__)
@@ -24,6 +25,8 @@ extern NSUInteger const kYKIRCClientReplyCommandYourHost;
 extern NSUInteger const kYKIRCClientReplyCommandCreated;
 extern NSUInteger const kYKIRCClientReplyCommandMyInfo;
 extern NSUInteger const kYKIRCClientReplyCommandBounce;
+extern NSUInteger const kYKIRCClientReplyCommandNamReply;
+extern NSUInteger const kYKIRCClientReplyCommandEndOfNames;
 
 @class YKIRCClient;
 
@@ -51,7 +54,8 @@ extern NSUInteger const kYKIRCClientReplyCommandBounce;
 @property (nonatomic, assign) UInt16 port;
 @property (nonatomic, copy) NSString *pass;
 @property (nonatomic, strong) YKIRCUser *user;
-@property (nonatomic, strong) YKIRCServerReply *serverReply;
+@property (nonatomic, readonly) YKIRCServerReply *serverReply;
+@property (nonatomic, readonly) NSMutableArray *channels;
 
 - (void)connect;
 - (void)joinChannelTo:(NSString *)channel;
@@ -59,5 +63,7 @@ extern NSUInteger const kYKIRCClientReplyCommandBounce;
 
 - (void)sendRawString:(NSString *)string tag:(long)tag;
 - (void)sendMessage:(NSString *)message recipient:(NSString *)recipient;
+
+- (YKIRCChannel *)channelWithName:(NSString *)name;
 
 @end

@@ -1,13 +1,13 @@
 #import "YKIRCClient.h"
 
 NSTimeInterval const kYKIRCClientDefaultTimeout = 60;
-NSUInteger const kYKIRCClientSockTagPass = 0;
-NSUInteger const kYKIRCClientSockTagNick = 1;
-NSUInteger const kYKIRCClientSockTagUser = 2;
-NSUInteger const kYKIRCClientSockTagPong = 3;
-NSUInteger const kYKIRCClientSockTagPrivMsg = 4;
-NSUInteger const kYKIRCClientSockTagJoin = 5;
-NSUInteger const kYKIRCClientSockTagPart = 6;
+NSUInteger const kYKIRCClientSockTagPass = 1;
+NSUInteger const kYKIRCClientSockTagNick = 2;
+NSUInteger const kYKIRCClientSockTagUser = 3;
+NSUInteger const kYKIRCClientSockTagPong = 4;
+NSUInteger const kYKIRCClientSockTagPrivMsg = 5;
+NSUInteger const kYKIRCClientSockTagJoin = 6;
+NSUInteger const kYKIRCClientSockTagPart = 7;
 
 NSUInteger const kYKIRCClientReplyCommandWelcome = 1;
 NSUInteger const kYKIRCClientReplyCommandYourHost = 2;
@@ -17,6 +17,8 @@ NSUInteger const kYKIRCClientReplyCommandMyInfo = 4;
 NSUInteger const kYKIRCClientReplyCommandMotdStart = 375;
 NSUInteger const kYKIRCClientReplyCommandMotd = 372;
 NSUInteger const kYKIRCClientReplyCommandEndOfMotd = 376;
+NSUInteger const kYKIRCClientReplyCommandNamReply = 353;
+NSUInteger const kYKIRCClientReplyCommandEndOfNames = 366;
 
 @interface YKIRCClient ()
 
@@ -29,27 +31,14 @@ NSUInteger const kYKIRCClientReplyCommandEndOfMotd = 376;
     self = [super init];
     if (self) {
         _sock = [[AsyncSocket alloc] initWithDelegate:self];
+        _user = [YKIRCUser new];
+        _serverReply = [YKIRCServerReply new];
+        _channels = @[].mutableCopy;
     }
     return self;
 }
 
 #pragma mark - Public methods
-
-- (YKIRCUser *)user
-{
-    if (!_user) {
-        _user = [YKIRCUser new];
-    }
-    return _user;
-}
-
-- (YKIRCServerReply *)serverReply
-{
-    if (!_serverReply) {
-        _serverReply = [YKIRCServerReply new];
-    }
-    return _serverReply;
-}
 
 - (void)connect
 {
@@ -90,6 +79,15 @@ NSUInteger const kYKIRCClientReplyCommandEndOfMotd = 376;
                     tag:kYKIRCClientSockTagPrivMsg];
 }
 
+- (YKIRCChannel *)channelWithName:(NSString *)name
+{
+    NSUInteger index = [self indexOfChannelWithName:name];
+    if (index != NSNotFound) {
+        return [_channels objectAtIndex:index];
+    }
+    return nil;
+}
+
 #pragma mark - Private methods
 
 - (void)sendPass
@@ -100,14 +98,26 @@ NSUInteger const kYKIRCClientReplyCommandEndOfMotd = 376;
 
 - (void)sendNick
 {
-    [self sendRawString:[NSString stringWithFormat:@"NICK %@", self.user.nick]
+    [self sendRawString:[NSString stringWithFormat:@"NICK %@", _user.nick]
                     tag:kYKIRCClientSockTagNick];
 }
 
 - (void)sendUser
 {
-    [self sendRawString:[NSString stringWithFormat:@"USER %@ %d * :%@", self.user.name, self.user.mode, self.user.realName]
+    [self sendRawString:[NSString stringWithFormat:@"USER %@ %d * :%@", _user.name, _user.mode, _user.realName]
                     tag:kYKIRCClientSockTagUser];
+}
+
+- (NSUInteger)indexOfChannelWithName:(NSString *)name
+{
+    int i = 0;
+    for (YKIRCChannel *channel in _channels) {
+        if ([channel.name isEqualToString:name]) {
+            return i;
+        }
+        i++;
+    }
+    return NSNotFound;
 }
 
 - (void)parseNumericCommandWithMessage:(YKIRCMessage *)message
@@ -132,6 +142,23 @@ NSUInteger const kYKIRCClientReplyCommandEndOfMotd = 376;
         case kYKIRCClientReplyCommandEndOfMotd: {
             NSString *text = [NSString stringWithFormat:@"\n%@", message.trail];
             self.serverReply.motd = [self.serverReply.motd stringByAppendingString:text];
+            break;
+        }
+        case kYKIRCClientReplyCommandNamReply: {
+            NSString *channelMode = message.params[1];
+            NSString *channelName = message.params[2];
+            YKIRCChannel *channel;
+            NSUInteger index = [self indexOfChannelWithName:channelName];
+            if (index == NSNotFound) {
+                channel = [[YKIRCChannel alloc] initWithName:channelName modeString:channelMode];
+                [_channels addObject:channel];
+            } else {
+                channel = [_channels objectAtIndex:index];
+            }
+            NSArray *users = [message.trail componentsSeparatedByString:@" "];
+            for (NSString *nick in users) {
+                [channel addUser:nick];
+            }
             break;
         }
         default:

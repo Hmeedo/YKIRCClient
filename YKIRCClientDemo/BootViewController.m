@@ -19,46 +19,33 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _client.host = @"IRC Host";
+}
+
+- (IBAction)connect:(id)sender
+{
+    NSString *host = _hostField.text;
+    _client.host = host;
     _client.port = 6667;
 //    _client.pass = @"pass";
-    _client.user.nick = @"nick";
-    _client.user.name = @"username";
+    _client.user.nick = @"ykircclient";
+    _client.user.name = @"ykircclient";
     _client.user.mode = 0;
     _client.user.realName = @"realname";
     [_client connect];
-}
-
-- (IBAction)sendMessage:(id)sender
-{
-    NSString *message = _textField.text;
-    [_client sendMessage:message recipient:@"#channel"];
-    _textField.text = nil;
-    [_textField resignFirstResponder];
-}
-
-- (IBAction)joinChannel:(id)sender
-{
-    NSString *channel = _joinChannelField.text;
-    [_client joinChannelTo:channel];
-    _joinChannelField.text = nil;
-    [_joinChannelField resignFirstResponder];
-}
-
-- (IBAction)partChannel:(id)sender
-{
-    NSString *channel = _partChannelField.text;
-    [_client partChannelFrom:channel];
-    _partChannelField.text = nil;
-    [_partChannelField resignFirstResponder];
+    [_hostField resignFirstResponder];
 }
 
 - (IBAction)sendRawMessage:(id)sender
 {
-    NSString *rawText = _rawTextField.text;
-    [_client sendRawString:rawText tag:0];
-    _rawTextField.text = nil;
-    [_rawTextField resignFirstResponder];
+    NSString *rawText = _rawMessageField.text;
+    [_client sendRawString:rawText tag:-1];
+    _rawMessageField.text = nil;
+    [_rawMessageField resignFirstResponder];
+}
+
+- (void)appendTextViewWithText:(NSString *)text
+{
+    _textView.text = [_textView.text stringByAppendingString:text];
 }
 
 #pragma mark - YKIRCClientDelegate
@@ -70,50 +57,65 @@
 
 - (void)ircClient:(YKIRCClient *)ircClient onUnknownResponse:(YKIRCMessage *)message
 {
-    NSString *newText = [_textView.text stringByAppendingString:message.rawMessage];
-    _textView.text = newText;
+    [self appendTextViewWithText:message.rawMessage];
 }
 
 - (void)ircClient:(YKIRCClient *)ircClient onMessage:(YKIRCMessage *)message
 {
     NSLog(@"message ---------");
+    NSString *text;
     if (message.user.nick) {
+        text = [NSString stringWithFormat:@"%@: %@\n", message.user.nick, message.trail];
         NSLog(@"nick: %@", message.user.nick);
     } else {
+        text = [NSString stringWithFormat:@"%@: %@\n", message.sender, message.trail];
         NSLog(@"sender: %@", message.sender);
     }
     NSLog(@"receiver: %@", message.params[0]);
     NSLog(@"text: %@", message.trail);
+    [self appendTextViewWithText:text];
 }
 
 - (void)ircClient:(YKIRCClient *)ircClient onNotice:(YKIRCMessage *)message
 {
     NSLog(@"notice ---------");
+    NSString *text;
     if (message.user.nick) {
+        text = [NSString stringWithFormat:@"%@: %@\n", message.user.nick, message.trail];
         NSLog(@"nick: %@", message.user.nick);
     } else {
+        text = [NSString stringWithFormat:@"%@: %@\n", message.sender, message.trail];
         NSLog(@"sender: %@", message.sender);
     }
     NSLog(@"receiver: %@", message.params[0]);
     NSLog(@"text: %@", message.trail);
+    [self appendTextViewWithText:text];
 }
 
 - (void)ircClient:(YKIRCClient *)ircClient onJoin:(YKIRCMessage *)message
 {
     NSLog(@"join ---------");
-    NSLog(@"%@ has joined to %@", message.user.nick, message.params[0]);
+    NSString *text = [NSString stringWithFormat:@"%@ has joined to %@\n", message.user.nick, message.params[0]];
+    [self appendTextViewWithText:text];
 }
 
 - (void)ircClient:(YKIRCClient *)ircClient onPart:(YKIRCMessage *)message
 {
     NSLog(@"part ---------");
-    NSLog(@"%@ has left from %@ (%@)", message.user.nick, message.params[0], message.trail);
+    NSString *text = [NSString stringWithFormat:@"%@ has left from %@ (%@)\n", message.user.nick, message.params[0], message.trail];
+    [self appendTextViewWithText:text];
 }
 
 - (void)ircClient:(YKIRCClient *)ircClient onCommandResponse:(YKIRCMessage *)message
 {
     NSLog(@"command ---------");
     NSLog(@"%@", message.rawMessage);
+    if ([message.command isEqualToString:@"376"]) {
+        NSString *text = [NSString stringWithFormat:@"%@\n", ircClient.serverReply.motd];
+        [self appendTextViewWithText:text];
+    } else {
+        [self appendTextViewWithText:message.rawMessage];
+    }
 }
 
 @end

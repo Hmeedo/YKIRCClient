@@ -341,12 +341,68 @@
                              };
     id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
     for (NSNumber *cmd in cmds) {
-        NSString *rawMessage = [NSString stringWithFormat:@":sender %d :%@", [cmd integerValue], trails[cmd]];
+        NSString *rawMessage = [NSString stringWithFormat:@":sender %d nick :%@", [cmd integerValue], trails[cmd]];
         NSData *data = [rawMessage dataUsingEncoding:NSUTF8StringEncoding];
         [client onSocket:sockMock didReadData:data withTag:0];
     }
     XCTAssertEqualObjects(client.serverReply.motd,
                           @"- <server> Message of the day -\n<text>\nEnd of MOTD Command");
+}
+
+- (void)testNameBasic
+{
+    YKIRCClient *client = [YKIRCClient new];
+    NSArray *stuffs = @[ @"@ #channel :foo @bar", @"@ #channel :baz +qux" ];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    for (NSString *other in stuffs) {
+        NSString *rawMessage = [NSString stringWithFormat:@":sender 353 nick %@", other];
+        NSData *data = [rawMessage dataUsingEncoding:NSUTF8StringEncoding];
+        [client onSocket:sockMock didReadData:data withTag:0];
+    }
+    XCTAssert(client.channels.count == 1);
+    YKIRCChannel *channel = client.channels[0];
+    XCTAssertEqualObjects(channel.name, @"#channel");
+    XCTAssertEqual(channel.mode, YKIRCChannelModeSecret);
+    XCTAssert(channel.users.count == 4);
+}
+
+- (void)testNameComplex
+{
+    YKIRCClient *client = [YKIRCClient new];
+    NSArray *stuffs = @[
+                        @[ @"@ #channel1 :foo bar",
+                           @"@ #channel1 :baz +qux" ],
+                        
+                        @[ @"@ #channel2 :foo",
+                           @"@ #channel2 :baz" ],
+                        
+                        @[ @"@ #channel3 :@bar",
+                           @"@ #channel3 :baz +qux" ],
+                        ];
+    id sockMock = [OCMockObject niceMockForClass:[AsyncSocket class]];
+    for (NSArray *replies in stuffs) {
+        for (NSString *reply in replies) {
+            NSString *rawMessage = [NSString stringWithFormat:@":sender 353 nick %@", reply];
+            NSData *data = [rawMessage dataUsingEncoding:NSUTF8StringEncoding];
+            [client onSocket:sockMock didReadData:data withTag:0];
+        }
+        NSString *rawMessage = @":sender 366 nick :END of NAMES";
+        NSData *data = [rawMessage dataUsingEncoding:NSUTF8StringEncoding];
+        [client onSocket:sockMock didReadData:data withTag:0];
+    }
+    XCTAssert(client.channels.count == 3);
+    
+    YKIRCChannel *channel1 = [client channelWithName:@"#channel1"];
+    XCTAssertNotNil(channel1);
+    XCTAssert(channel1.users.count == 4);
+
+    YKIRCChannel *channel2 = [client channelWithName:@"#channel2"];
+    XCTAssertNotNil(channel2);
+    XCTAssert(channel2.users.count == 2);
+
+    YKIRCChannel *channel3 = [client channelWithName:@"#channel3"];
+    XCTAssertNotNil(channel3);
+    XCTAssert(channel3.users.count == 3);
 }
 
 @end
