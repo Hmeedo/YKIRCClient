@@ -1,6 +1,5 @@
 language: objective-c
 before_install:
-  - sudo rvm use ruby-2.0.0-p247
   - gem install cocoapods -r
-  - pod setup |> setup.log
+  - pod setup
 script: make test
